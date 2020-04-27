@@ -1,0 +1,8 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "rovianda_mobile_enfriamiento",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "cordova": {}
+}

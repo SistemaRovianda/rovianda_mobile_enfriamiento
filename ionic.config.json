@@ -1,0 +1,7 @@
+{
+  "name": "rovianda_mobile_enfriamiento",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
