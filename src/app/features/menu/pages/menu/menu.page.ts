@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { HeaderInterface } from "src/app/shared/models/header.interface";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-menu",
@@ -12,7 +13,16 @@ export class MenuPage implements OnInit {
     path: "/login",
   };
 
-  constructor() {}
+  section: string;
+
+  constructor(private router: Router) {}
 
   ngOnInit() {}
+
+  nextSection() {
+    console.log(this.section);
+
+    //this.router.navigate(["/"+this.section]);
+    this.section = undefined;
+  }
 }
