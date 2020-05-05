@@ -1,0 +1,80 @@
+<ion-grid class="container">
+  <ion-row class="title">
+    <ion-col size="12" class="ion-align-self-end">
+      <h1>Enfriamiento</h1>
+    </ion-col>
+  </ion-row>
+  <ion-row class="body">
+    <ion-col size="12">
+      <form [formGroup]="loginForm">
+        <ion-grid class="form-grid">
+          <ion-row class="form-image">
+            <ion-col size="12">
+              <div class="image"></div>
+            </ion-col>
+          </ion-row>
+          <ion-row class="form-message">
+            <ion-col size="12">
+              <h1>Introduce tu usuario y contrase&ntilde;a</h1>
+              <h1>Para iniciar sesi&oacute;n</h1>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-item lines="none" class="form-input">
+              <ion-icon name="user" class="color"></ion-icon>
+              <ion-input
+                formControlName="email"
+                type="email"
+                placeholder="Nombre de usuario"
+                required
+              ></ion-input>
+            </ion-item>
+          </ion-row>
+          <div class="error">
+            <ion-label *ngIf="email.errors">
+              Por favor ingresa un correo electr&oacute;nico valido
+            </ion-label>
+          </div>
+          <ion-row>
+            <ion-item lines="none" class="form-input">
+              <ion-icon name="lock" class="color"></ion-icon>
+              <ion-input
+                formControlName="password"
+                type="password"
+                placeholder="Contrase&ntilde;a"
+                required
+              >
+              </ion-input>
+            </ion-item>
+          </ion-row>
+          <div class="error">
+            <ion-label *ngIf="password.errors">
+              Por favor ingresa una contraseña válida
+            </ion-label>
+          </div>
+          <ion-button
+            (click)="onLogin()"
+            [disabled]="loginForm.status=='INVALID'"
+          >
+            <label *ngIf="!loading">Iniciar sesi&oacute;n</label>
+            <ion-spinner
+              *ngIf="loading"
+              name="crescent"
+              diameter="32"
+            ></ion-spinner>
+          </ion-button>
+          <div class="error">
+            <ion-label *ngIf="loginForm.errors?.loginError">
+              {{ loginForm.errors.loginError}} Error
+            </ion-label>
+          </div>
+        </ion-grid>
+      </form>
+    </ion-col>
+  </ion-row>
+  <ion-row class="footer">
+    <ion-col size="12" class="ion-align-self-start">
+      <h1 (click)="recoverPassword()">Recuperar contrase&ntilde;a</h1>
+    </ion-col>
+  </ion-row>
+</ion-grid>
