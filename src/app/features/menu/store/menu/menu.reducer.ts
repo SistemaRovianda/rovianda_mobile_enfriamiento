@@ -1,6 +1,8 @@
 import { MenuInterface } from "src/app/shared/models/menu.interface";
-import { createReducer, on } from "@ngrx/store";
+import { createReducer, on, State } from "@ngrx/store";
 import * as fromMenuActions from "./menu.actions";
+import * as fromOpenLotActions from "../open-lot/open-lot.actions";
+import * as fromCloseLotActions from "../close-lot/close-lot.actions";
 
 const STATE_INITIAL_MENU: MenuInterface = {
   lots: [],
@@ -34,5 +36,13 @@ export const menuReducer = createReducer(
   on(fromMenuActions.menuLoadProducts, (state, { products }) => ({
     ...state,
     products,
+  })),
+  on(fromOpenLotActions.openLotStartLoad, (state) => ({
+    ...state,
+    loading: true,
+  })),
+  on(fromCloseLotActions.closeLotStartLoad, (state) => ({
+    ...state,
+    loading: true,
   }))
 );

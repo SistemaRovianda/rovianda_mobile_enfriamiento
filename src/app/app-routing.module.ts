@@ -30,6 +30,13 @@ const routes: Routes = [
         (m) => m.OpenLotPageModule
       ),
   },
+  {
+    path: "close-lot",
+    loadChildren: () =>
+      import("./features/menu/pages/close-lot/close-lot.module").then(
+        (m) => m.CloseLotPageModule
+      ),
+  },
 ];
 
 @NgModule({
