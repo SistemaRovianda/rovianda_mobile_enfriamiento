@@ -1,0 +1,72 @@
+<app-header [header]="header"></app-header>
+<div class="container">
+  <h1 class="title">Abrir lote</h1>
+  <form [formGroup]="lotForm" class="body">
+    <ion-row>
+      <ion-item>
+        <ion-label position="floating">Lote*</ion-label>
+        <ion-input
+          formControlName="lot"
+          class="item-form"
+          placeholder="Ingresa lote"
+        ></ion-input>
+      </ion-item>
+    </ion-row>
+    <div class="error">
+      <ion-label *ngIf="lot.errors">
+        Por favor ingrese un lote
+      </ion-label>
+    </div>
+    <ion-row>
+      <ion-item>
+        <ion-label position="floating">Producto*</ion-label>
+        <ion-select
+          class="item-form"
+          interface="action-sheet"
+          placeholder="Seleccione un producto"
+          formControlName="product"
+        ></ion-select>
+      </ion-item>
+    </ion-row>
+    <div class="error">
+      <ion-label *ngIf="product.errors">
+        Por favor seleccione un producto
+      </ion-label>
+    </div>
+    <ion-row>
+      <ion-item>
+        <ion-label position="floating">Fecha de apertura</ion-label>
+        <ion-datetime
+          class="item-form"
+          placeholder="Ingresar fecha"
+          displayFormat="MM/DD/YYYY"
+          formControlName="date"
+        >
+        </ion-datetime>
+      </ion-item>
+    </ion-row>
+    <div class="error">
+      <ion-label *ngIf="date.errors">
+        Por favor seleccione la fecha
+      </ion-label>
+    </div>
+  </form>
+  <ion-grid class="footer">
+    <ion-row class="row-stepper">
+      <ion-col size="12">
+        <app-stepper #stepperTag></app-stepper>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row-button">
+      <ion-button [disabled]="!stepperTag.getStep(1)" class="next-button">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12">
+              Abrir lote
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-button>
+    </ion-row>
+  </ion-grid>
+</div>
