@@ -5,11 +5,20 @@
     <ion-row>
       <ion-item>
         <ion-label position="floating">Lote*</ion-label>
-        <ion-input
-          formControlName="lot"
+        <ion-select
           class="item-form"
-          placeholder="Ingresa lote"
-        ></ion-input>
+          interface="action-sheet"
+          placeholder="Seleccione lote"
+          formControlName="lot"
+          [disabled]="loading"
+          (ionChange)="selectLot()"
+        >
+          <ng-container *ngFor="let lot of lots">
+            <ion-select-option [value]="lot.loteId"
+              >{{lot.name}}</ion-select-option
+            >
+          </ng-container>
+        </ion-select>
       </ion-item>
     </ion-row>
     <div class="error">
@@ -25,7 +34,14 @@
           interface="action-sheet"
           placeholder="Seleccione un producto"
           formControlName="product"
-        ></ion-select>
+          [disabled]="loading"
+        >
+          <ng-container *ngFor="let product of products">
+            <ion-select-option [value]="product"
+              >{{product.description}}</ion-select-option
+            >
+          </ng-container>
+        </ion-select>
       </ion-item>
     </ion-row>
     <div class="error">
@@ -58,13 +74,18 @@
       </ion-col>
     </ion-row>
     <ion-row class="row-button">
-      <ion-button [disabled]="!stepperTag.getStep(1)" class="next-button">
+      <ion-button
+        [disabled]="!stepperTag.getStep(1)"
+        class="next-button"
+        (click)="requestOpenLot()"
+      >
         <ion-grid>
-          <ion-row>
+          <ion-row *ngIf="!loading">
             <ion-col size="12">
               Abrir lote
             </ion-col>
           </ion-row>
+          <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
         </ion-grid>
       </ion-button>
     </ion-row>

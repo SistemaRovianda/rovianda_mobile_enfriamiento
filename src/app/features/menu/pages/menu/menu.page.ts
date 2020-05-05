@@ -22,7 +22,7 @@ export class MenuPage implements OnInit {
   nextSection() {
     console.log(this.section);
 
-    //this.router.navigate(["/"+this.section]);
+    this.router.navigate(["/" + this.section]);
     this.section = undefined;
   }
 }
