@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
+import { MenuResolver } from "./shared/resolver/menu.resolver";
 
 const routes: Routes = [
   {
@@ -14,6 +15,30 @@ const routes: Routes = [
         (m) => m.LoginPageModule
       ),
   },
+  {
+    path: "menu",
+    loadChildren: () =>
+      import("./features/menu/pages/menu/menu.module").then(
+        (m) => m.MenuPageModule
+      ),
+    resolve: {
+      menu: MenuResolver,
+    },
+  },
+  {
+    path: "open-lot",
+    loadChildren: () =>
+      import("./features/menu/pages/open-lot/open-lot.module").then(
+        (m) => m.OpenLotPageModule
+      ),
+  },
+  {
+    path: "close-lot",
+    loadChildren: () =>
+      import("./features/menu/pages/close-lot/close-lot.module").then(
+        (m) => m.CloseLotPageModule
+      ),
+  },
 ];
 
 @NgModule({
@@ -21,5 +46,6 @@ const routes: Routes = [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
   exports: [RouterModule],
+  providers: [MenuResolver],
 })
 export class AppRoutingModule {}

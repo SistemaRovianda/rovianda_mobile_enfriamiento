@@ -1,0 +1,93 @@
+<app-header [header]="header"></app-header>
+<div class="container">
+  <h1 class="title">Abrir lote</h1>
+  <form [formGroup]="lotForm" class="body">
+    <ion-row>
+      <ion-item>
+        <ion-label position="floating">Lote*</ion-label>
+        <ion-select
+          class="item-form"
+          interface="action-sheet"
+          placeholder="Seleccione lote"
+          formControlName="lot"
+          [disabled]="loading"
+          (ionChange)="selectLot()"
+        >
+          <ng-container *ngFor="let lot of lots">
+            <ion-select-option [value]="lot.loteId"
+              >{{lot.name}}</ion-select-option
+            >
+          </ng-container>
+        </ion-select>
+      </ion-item>
+    </ion-row>
+    <div class="error">
+      <ion-label *ngIf="lot.errors">
+        Por favor ingrese un lote
+      </ion-label>
+    </div>
+    <ion-row>
+      <ion-item>
+        <ion-label position="floating">Producto*</ion-label>
+        <ion-select
+          class="item-form"
+          interface="action-sheet"
+          placeholder="Seleccione un producto"
+          formControlName="product"
+          [disabled]="loading"
+        >
+          <ng-container *ngFor="let product of products">
+            <ion-select-option [value]="product"
+              >{{product.description}}</ion-select-option
+            >
+          </ng-container>
+        </ion-select>
+      </ion-item>
+    </ion-row>
+    <div class="error">
+      <ion-label *ngIf="product.errors">
+        Por favor seleccione un producto
+      </ion-label>
+    </div>
+    <ion-row>
+      <ion-item>
+        <ion-label position="floating">Fecha de apertura</ion-label>
+        <ion-datetime
+          class="item-form"
+          placeholder="Ingresar fecha"
+          displayFormat="MM/DD/YYYY"
+          formControlName="date"
+        >
+        </ion-datetime>
+      </ion-item>
+    </ion-row>
+    <div class="error">
+      <ion-label *ngIf="date.errors">
+        Por favor seleccione la fecha
+      </ion-label>
+    </div>
+  </form>
+  <ion-grid class="footer">
+    <ion-row class="row-stepper">
+      <ion-col size="12">
+        <app-stepper #stepperTag></app-stepper>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row-button">
+      <ion-button
+        [disabled]="!stepperTag.getStep(1)"
+        class="next-button"
+        (click)="requestOpenLot()"
+      >
+        <ion-grid>
+          <ion-row *ngIf="!loading">
+            <ion-col size="12">
+              Abrir lote
+            </ion-col>
+          </ion-row>
+          <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
+        </ion-grid>
+      </ion-button>
+    </ion-row>
+  </ion-grid>
+</div>

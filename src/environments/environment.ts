@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  basePath: "Fake path"
+  basePath: "path fake",
 };
 
 /*
