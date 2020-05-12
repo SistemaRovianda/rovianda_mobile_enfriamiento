@@ -36,7 +36,11 @@ const routes: Routes = [
       import("./features/menu/pages/close-lot/close-lot.module").then(
         (m) => m.CloseLotPageModule
       ),
+  },  {
+    path: 'exit-lot',
+    loadChildren: () => import('./features/menu/pages/exit-lot/exit-lot.module').then( m => m.ExitLotPageModule)
   },
+
 ];
 
 @NgModule({
