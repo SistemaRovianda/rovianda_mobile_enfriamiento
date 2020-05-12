@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { Observable } from "rxjs";
 import { LotProductInterface } from "../models/lot-product.interface";
+import { ReportExitInterface } from "../models/report-exit.interface";
 
 @Injectable({
   providedIn: "root",
@@ -29,10 +30,10 @@ export class InquietudService {
     });
   }
 
-  exit(lot: LotProductInterface): Observable<any> {
+  exit(report: ReportExitInterface): Observable<any> {
     return new Observable((observer) => {
-      console.log(lot);
-      observer.next(lot);
+      console.log(report);
+      observer.next(report);
       observer.complete();
     });
   }

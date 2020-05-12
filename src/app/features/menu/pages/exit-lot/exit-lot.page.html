@@ -2,54 +2,114 @@
 <div class="container">
   <h1 class="title">Información principal</h1>
   <h1 class="subtitle">Salida</h1>
-  <form class="body">
+  <form [formGroup]="reportForm" class="body">
     <ion-row>
-      <ion-col size="6">
-        <ion-label position="floating">Producto*</ion-label>
-        <ion-select
-          class="item-form"
-          interface="action-sheet"
-          placeholder="Seleccione un producto"
-        >
-        </ion-select>
+      <ion-col size="7">
+        <ion-item>
+          <ion-label position="floating">Producto*</ion-label>
+          <ion-select
+            class="item-form"
+            interface="action-sheet"
+            placeholder="Seleccione un producto"
+            formControlName="product"
+          >
+            <ng-container *ngFor="let product of products">
+              <ion-select-option [value]="product">
+                {{product.description}}</ion-select-option
+              >
+            </ng-container>
+          </ion-select>
+        </ion-item>
+        <div class="error">
+          <ion-label *ngIf="product.errors"
+            >Por favor seleccione un producto</ion-label
+          >
+        </div>
       </ion-col>
-      <ion-col size="6">
+      <ion-col size="5">
         <ion-item>
           <ion-label position="floating">Fecha entrada*</ion-label>
           <ion-datetime
             class="item-form"
             placeholder="Ingresar fecha"
             displayFormat="MM/DD/YYYY"
+            formControlName="date"
           ></ion-datetime>
         </ion-item>
+        <div class="error">
+          <ion-label *ngIf="date.errors">Por favor ingrese un lote</ion-label>
+        </div>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col size="6">
-        <ion-label>Lote proveedor</ion-label>
-        <ion-input class="item-form"></ion-input>
+        <ion-item>
+          <ion-label position="floating">Lote proveedor</ion-label>
+          <ion-input
+            class="item-form"
+            placeholder=" "
+            formControlName="lot"
+          ></ion-input>
+        </ion-item>
+        <div class="error">
+          <ion-label *ngIf="lot.errors"
+            >Por favor ingrese un lote proveedor</ion-label
+          >
+        </div>
       </ion-col>
       <ion-col size="6">
-        <ion-label>Lote interno</ion-label>
-        <ion-select
-          class="item-form"
-          interface="action-sheet"
-          placeholder="Ingrese lote interno"
-        >
-        </ion-select>
+        <ion-item>
+          <ion-label position="floating">Lote interno</ion-label>
+          <ion-select
+            class="item-form"
+            interface="action-sheet"
+            placeholder="Ingrese lote interno"
+            formControlName="lotInternal"
+          >
+            <ng-container *ngFor="let lot of lots">
+              <ion-select-option [value]="lot.loteId">
+                {{lot.name}}</ion-select-option
+              >
+            </ng-container>
+          </ion-select>
+        </ion-item>
+        <div class="error">
+          <ion-label *ngIf="lotInternal.errors"
+            >Por favor seleccione lote
+          </ion-label>
+        </div>
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col>
-        <ion-label>Cantidad*</ion-label>
-        <ion-input
-          class="item-form"
-          placeholder="Ingresar cantidad"
-        ></ion-input>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Cantidad*</ion-label>
+          <ion-input
+            class="item-form"
+            type="number"
+            placeholder="Ingresar cantidad"
+            formControlName="quantity"
+          ></ion-input>
+        </ion-item>
+        <div class="error">
+          <ion-label *ngIf="quantity.errors"
+            >Por favor ingrese una cantidad</ion-label
+          >
+        </div>
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col> </ion-col>
+      <ion-col size="12">
+        <h1 class="title-observation">Observaciones generales</h1>
+      </ion-col>
+      <ion-col size="12">
+        <ion-item lines="none" color="color-input" class="input-observation">
+          <ion-input
+            class="item-form"
+            formControlName="observations"
+          ></ion-input>
+        </ion-item>
+      </ion-col>
     </ion-row>
   </form>
   <ion-grid class="footer">
@@ -59,9 +119,9 @@
       </ion-col>
     </ion-row>
     <ion-row class="row-button">
-      <ion-button class="next-button" [disabled]="!stepperTag.getStep(1)">
+      <ion-button class="next-button" [disabled]="!stepperTag.getStep(1)" (click)="requestReport()">
         <ion-grid>
-          <ion-row *ngIf="true">
+          <ion-row *ngIf="!loading">
             <ion-col size="10">
               Guardar el registro
             </ion-col>
@@ -69,7 +129,7 @@
               <ion-icon name="chevron-forward-outline"></ion-icon>
             </ion-col>
           </ion-row>
-          <ion-spinner *ngIf="false" name="crescent"></ion-spinner>
+          <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
         </ion-grid>
       </ion-button>
     </ion-row>
