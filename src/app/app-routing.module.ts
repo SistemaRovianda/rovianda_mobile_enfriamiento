@@ -46,6 +46,13 @@ const routes: Routes = [
         (m) => m.ExitLotPageModule
       ),
   },
+  {
+    path: "report",
+    loadChildren: () =>
+      import("./features/menu/pages/report/report.module").then(
+        (m) => m.ReportPageModule
+      ),
+  },
 ];
 
 @NgModule({
