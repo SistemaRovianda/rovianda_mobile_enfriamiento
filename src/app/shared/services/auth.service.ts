@@ -37,8 +37,6 @@ export class AuthService {
   };
 
   signIn(email: string, password: string): Observable<any> {
-    email = "almacen@yopmail.com";
-    password = "almace";
 
     return from(
       this.auth
