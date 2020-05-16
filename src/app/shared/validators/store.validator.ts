@@ -1,8 +1,8 @@
 import { Observable } from "rxjs";
 import { AbstractControl, ValidationErrors } from "@angular/forms";
-import { take, map } from "rxjs/operators";
+import { take, map, tap } from "rxjs/operators";
 
-export class StoreValidator {
+export class StoreValidators {
   constructor() {}
 
   static hasStoreError<T>(error: Observable<T>, errorName: string) {

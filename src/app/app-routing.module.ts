@@ -1,6 +1,8 @@
 import { NgModule } from "@angular/core";
 import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
 import { MenuResolver } from "./shared/resolver/menu.resolver";
+import { IsAuthenticatedGuard } from "./shared/guards/is_authenticated.guard";
+import { AuthGuard } from "./shared/guards/auth.guard";
 
 const routes: Routes = [
   {
@@ -10,6 +12,7 @@ const routes: Routes = [
   },
   {
     path: "login",
+    canActivate: [IsAuthenticatedGuard],
     loadChildren: () =>
       import("./features/landing/pages/login/login.module").then(
         (m) => m.LoginPageModule
@@ -17,6 +20,7 @@ const routes: Routes = [
   },
   {
     path: "menu",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("./features/menu/pages/menu/menu.module").then(
         (m) => m.MenuPageModule
@@ -27,6 +31,7 @@ const routes: Routes = [
   },
   {
     path: "open-lot",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("./features/menu/pages/open-lot/open-lot.module").then(
         (m) => m.OpenLotPageModule
@@ -34,6 +39,7 @@ const routes: Routes = [
   },
   {
     path: "close-lot",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("./features/menu/pages/close-lot/close-lot.module").then(
         (m) => m.CloseLotPageModule
@@ -41,6 +47,7 @@ const routes: Routes = [
   },
   {
     path: "exit-lot",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("./features/menu/pages/exit-lot/exit-lot.module").then(
         (m) => m.ExitLotPageModule
@@ -48,6 +55,7 @@ const routes: Routes = [
   },
   {
     path: "report",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("./features/menu/pages/report/report.module").then(
         (m) => m.ReportPageModule

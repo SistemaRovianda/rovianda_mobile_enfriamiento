@@ -1,6 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { HeaderInterface } from "src/app/shared/models/header.interface";
 import { Router } from "@angular/router";
+import { Store } from "@ngrx/store";
+import { AppStateInterface } from "src/app/shared/Models/app-state.interface";
+import { signOut } from "src/app/features/landing/store/login/login.action";
 
 @Component({
   selector: "app-menu",
@@ -15,7 +18,10 @@ export class MenuPage implements OnInit {
 
   section: string;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private store: Store<AppStateInterface>
+  ) {}
 
   ngOnInit() {}
 
@@ -24,5 +30,9 @@ export class MenuPage implements OnInit {
 
     this.router.navigate(["/" + this.section]);
     this.section = undefined;
+  }
+
+  logOut() {
+    this.store.dispatch(signOut());
   }
 }

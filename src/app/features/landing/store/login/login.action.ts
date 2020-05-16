@@ -17,6 +17,8 @@ const SING_IN_FAILURE = "[LOGIN] Sing In Failure";
 
 const SIGN_OUT_SUCCESS = "[LOGIN] Sign Out Success";
 
+const SIGN_OUT_FAILURED = "[LOGIN] Sign Out Failured";
+
 export const signIn = createAction(
   SIGN_IN,
   props<{ email: string; password: string }>()
@@ -41,3 +43,8 @@ export const signInFailure = createAction(
 );
 
 export const signOutSuccess = createAction(SIGN_OUT_SUCCESS);
+
+export const signOutFailured = createAction(
+  SIGN_OUT_FAILURED,
+  props<{ error: string }>()
+);

@@ -6,7 +6,7 @@
   </ion-row>
   <ion-row class="body">
     <ion-col size="12">
-      <form [formGroup]="loginForm">
+      <form  [formGroup]="loginForm">
         <ion-grid class="form-grid">
           <ion-row class="form-image">
             <ion-col size="12">
@@ -54,7 +54,7 @@
           </div>
           <ion-button
             (click)="onLogin()"
-            [disabled]="loginForm.status=='INVALID'"
+            [disabled]="loginForm.invalid"
           >
             <label *ngIf="!loading">Iniciar sesi&oacute;n</label>
             <ion-spinner
@@ -65,16 +65,11 @@
           </ion-button>
           <div class="error">
             <ion-label *ngIf="loginForm.errors?.loginError">
-              {{ loginForm.errors.loginError}} Error
+              {{ translateErrorMessageByFirebase(loginForm.errors.loginError)}} 
             </ion-label>
           </div>
         </ion-grid>
       </form>
-    </ion-col>
-  </ion-row>
-  <ion-row class="footer">
-    <ion-col size="12" class="ion-align-self-start">
-      <h1 (click)="recoverPassword()">Recuperar contrase&ntilde;a</h1>
     </ion-col>
   </ion-row>
 </ion-grid>

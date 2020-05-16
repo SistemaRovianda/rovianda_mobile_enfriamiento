@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { HeaderInterface } from "../../models/header.interface";
 
 @Component({
@@ -9,7 +9,13 @@ import { HeaderInterface } from "../../models/header.interface";
 export class HeaderComponent implements OnInit {
   @Input() header: HeaderInterface;
 
+  @Output() event = new EventEmitter();
+
   constructor() {}
 
   ngOnInit() {}
+
+  onClick() {
+    this.event.emit("click action");
+  }
 }

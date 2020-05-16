@@ -12,6 +12,7 @@ const STATE_INITIAL_USER: UserInterface = {
   phone: null,
   type: null,
   role: null,
+  currentToken: null,
 };
 
 export const userReducer = createReducer<UserInterface>(
@@ -19,6 +20,10 @@ export const userReducer = createReducer<UserInterface>(
   on(fromUserActions.loadUser, (state, userCredential) => ({
     ...state,
     ...userCredential,
+  })),
+  on(fromUserActions.loadCurrentTokenSuccess, (state, { currentToken }) => ({
+    ...state,
+    currentToken,
   })),
   on(fromUserActions.clearUser, (state) => ({
     ...state,

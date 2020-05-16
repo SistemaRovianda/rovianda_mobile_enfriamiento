@@ -16,7 +16,12 @@ import { EffectsModule } from "@ngrx/effects";
 import { effects } from "./features/store/index.effects";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { AuthGuard } from "./shared/guards/auth.guard";
+import { IsAuthenticatedGuard } from "./shared/guards/is_authenticated.guard";
+import { AuthInterceptor } from "./shared/interceptors/auth.interceptor";
+import { ErrorInterceptor } from "./shared/interceptors/error.interceptor";
+import { AngularFireAuthModule } from "@angular/fire/auth";
 
 const COMMON_DECLARATIONS = [AppComponent];
 
@@ -24,6 +29,7 @@ const COMMON_IMPORTS = [
   BrowserModule,
   IonicModule.forRoot(),
   AppRoutingModule,
+  AngularFireAuthModule,
   StoreModule.forRoot(reducers, {
     metaReducers,
     runtimeChecks: {
@@ -42,6 +48,18 @@ const COMMON_PROVIDERS = [
   StatusBar,
   SplashScreen,
   { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+  AuthGuard,
+  IsAuthenticatedGuard,
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true,
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: ErrorInterceptor,
+    multi: true,
+  },
 ];
 
 @NgModule({

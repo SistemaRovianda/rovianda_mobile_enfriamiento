@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { emailValidator } from "src/app/shared/validators/email.validator";
 import { passwordValidator } from "src/app/shared/validators/password.validator";
-import { StoreValidator } from "src/app/shared/validators/store.validator";
+import { StoreValidators } from "src/app/shared/validators/store.validator";
 import { Store } from "@ngrx/store";
 import { AppStateInterface } from "src/app/shared/models/app-state.interface";
 import {
@@ -30,9 +30,9 @@ export class LoginPage implements OnInit {
     },
     {
       asyncValidators: [
-        StoreValidator.hasStoreError(
+        StoreValidators.hasStoreError(
           this.store.select(SELECT_LOGIN_ERROR),
-          "login error"
+          "loginError"
         ),
       ],
     }
@@ -50,15 +50,24 @@ export class LoginPage implements OnInit {
     this.store.dispatch(fromLoginActions.signIn(this.loginForm.value));
   }
 
-  recoverPassword() {
-    console.log("recuperar contraseña");
-  }
-
   get email() {
     return this.loginForm.get("email");
   }
 
   get password() {
     return this.loginForm.get("password");
+  }
+
+  translateErrorMessageByFirebase(value: string) {
+    if (
+      value == "The password is invalid or the user does not have a password."
+    )
+      return "La contraseña es incorrecta";
+    if (
+      value ==
+      "There is no user record corresponding to this identifier. The user may have been deleted."
+    )
+      return "El correo electrónico no existe.";
+    return "Varios intentos fallidos, volver a intentarlo mas tarde o consultarlo con el administrador del sistema";
   }
 }

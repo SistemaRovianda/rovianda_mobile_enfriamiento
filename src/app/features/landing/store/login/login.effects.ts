@@ -18,28 +18,49 @@ export class LoginEffects {
   signInEffect$ = createEffect(() =>
     this.action$.pipe(
       ofType(fromLoginActions.signIn),
-      delay(2000),
-      exhaustMap((action) => {
-        return forkJoin(
-          this.auth.signIn(action.email, action.password),
-          this.auth.getTokenCurrentUser()
-        ).pipe(
-          switchMap(([{ uid, token }, { currentToken }]) => {
+      exhaustMap((action) =>
+        this.auth.signIn(action.email, action.password).pipe(
+          switchMap(({ uid, token }) => {
             return [
               fromLoginActions.startLoad(),
               fromUserActions.loadUser({ uid, token }),
-              fromUserActions.loadCurrentToken({ currentToken }),
-              fromLoginActions.signAuthSuccess({ uid }),
+              fromUserActions.loadCurrentToken({ uid }),
             ];
           }),
+          catchError((error) =>
+            of(
+              fromLoginActions.finishLoad(),
+              fromLoginActions.signInFailure({ error: error.message })
+            )
+          )
+        )
+      )
+    )
+  );
+
+
+  loadCurrentTokenEffect$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(fromUserActions.loadCurrentToken),
+      exhaustMap((action) =>
+        this.auth.getTokenCurrentUser().pipe(
+          switchMap((res) => [
+            fromUserActions.loadCurrentTokenSuccess({
+              currentToken: res.currentToken,
+            }),
+            fromLoginActions.signAuthSuccess({
+              uid: action.uid,
+              currentToken: res.currentToken,
+            }),
+          ]),
           catchError((error) =>
             of(
               fromLoginActions.finishLoad(),
               fromLoginActions.signInFailure(error)
             )
           )
-        );
-      })
+        )
+      )
     )
   );
 
@@ -48,7 +69,6 @@ export class LoginEffects {
       ofType(fromLoginActions.signAuthSuccess),
       exhaustMap((action) =>
         this.auth.getUserData(action.uid).pipe(
-          delay(3000),
           switchMap(({ token }) => [
             fromUserActions.loadUser({ token }),
             fromLoginActions.signInSuccess(),
@@ -72,7 +92,7 @@ export class LoginEffects {
           switchMap((result) =>
             result
               ? [fromLoginActions.finishLoad()]
-              : [fromLoginActions.signInFailure({ error: "Usuario no valido" })]
+              : [fromLoginActions.signInFailure({ error: "No autorizado" })]
           ),
           catchError((error) =>
             of(
@@ -80,6 +100,18 @@ export class LoginEffects {
               fromLoginActions.signInFailure(error)
             )
           )
+        )
+      )
+    )
+  );
+
+  signOutEffect$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(fromLoginActions.signOut),
+      exhaustMap((action) =>
+        this.auth.signOut().pipe(
+          switchMap((action) => [fromUserActions.clearUser()]),
+          catchError((error) => of(fromLoginActions.signOutFailured(error)))
         )
       )
     )

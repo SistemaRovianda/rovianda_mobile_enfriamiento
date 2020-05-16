@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  basePath: "path fake",
+  basePath: "https://us-central1-rovianda-88249.cloudfunctions.net/app/rovianda",
 };
 
 /*
