@@ -1,8 +1,10 @@
 import { NgModule } from "@angular/core";
 import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
-import { MenuResolver } from "./shared/resolver/menu.resolver";
 import { IsAuthenticatedGuard } from "./shared/guards/is_authenticated.guard";
 import { AuthGuard } from "./shared/guards/auth.guard";
+import { LotsResolver } from "./shared/resolver/lots.resolver";
+import { MenuResolver } from "./shared/resolver/menu.resolver";
+import { ProductResolver } from "./shared/resolver/product.resolver";
 
 const routes: Routes = [
   {
@@ -32,26 +34,41 @@ const routes: Routes = [
   {
     path: "open-lot",
     canActivate: [AuthGuard],
+    data: { status: "PENDING" },
     loadChildren: () =>
       import("./features/menu/pages/open-lot/open-lot.module").then(
         (m) => m.OpenLotPageModule
       ),
+    resolve: {
+      lots: LotsResolver,
+      product: ProductResolver,
+    },
   },
   {
     path: "close-lot",
     canActivate: [AuthGuard],
+    data: { status: "OPENED" },
     loadChildren: () =>
       import("./features/menu/pages/close-lot/close-lot.module").then(
         (m) => m.CloseLotPageModule
       ),
+    resolve: {
+      lots: LotsResolver,
+      product: ProductResolver,
+    },
   },
   {
     path: "exit-lot",
     canActivate: [AuthGuard],
+    data: { status: "CLOSED" },
     loadChildren: () =>
       import("./features/menu/pages/exit-lot/exit-lot.module").then(
         (m) => m.ExitLotPageModule
       ),
+    resolve: {
+      lots: LotsResolver,
+      product: ProductResolver,
+    },
   },
   {
     path: "report",
@@ -68,6 +85,6 @@ const routes: Routes = [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
   exports: [RouterModule],
-  providers: [MenuResolver],
+  providers: [LotsResolver, MenuResolver, ProductResolver],
 })
 export class AppRoutingModule {}

@@ -8,18 +8,10 @@ import { ReportExitInterface } from "../models/report-exit.interface";
 @Injectable({
   providedIn: "root",
 })
-export class InquietudService {
+export class MeatService {
   API;
   constructor(private http: HttpClient) {
-    this.API = `${environment.basePath}/inquietud`;
-  }
-
-  entrance(lot: LotProductInterface): Observable<any> {
-    return new Observable((observer) => {
-      console.log(lot);
-      observer.next(lot);
-      observer.complete();
-    });
+    this.API = `${environment.basePathMock}/meat`;
   }
 
   close(lot: LotProductInterface): Observable<any> {
@@ -31,10 +23,9 @@ export class InquietudService {
   }
 
   exit(report: ReportExitInterface): Observable<any> {
-    return new Observable((observer) => {
-      console.log(report);
-      observer.next(report);
-      observer.complete();
-    });
+    return this.http.post<any>(`${this.API}/exit`, report);
+  }
+  status(lot: LotProductInterface): Observable<any> {
+    return this.http.patch<any>(`${this.API}/status`, lot);
   }
 }

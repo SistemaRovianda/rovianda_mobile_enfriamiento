@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { InquietudService } from "src/app/shared/services/inquietud.service";
+import { MeatService } from "src/app/shared/services/meat.service";
 import { catchError, delay, exhaustMap, switchMap } from "rxjs/operators";
 import { openLotStartLoad } from "./open-lot.actions";
 import { of } from "rxjs";
@@ -8,13 +8,13 @@ import * as fromMenuActions from "src/app/features/menu/store/menu/menu.actions"
 
 @Injectable()
 export class OpenLotEffects {
-  constructor(private action$: Actions, private inquietud: InquietudService) {}
+  constructor(private action$: Actions, private inquietud: MeatService) {}
 
   loadOpenLotEffects = createEffect(() =>
     this.action$.pipe(
       ofType(openLotStartLoad),
       exhaustMap((action) =>
-        this.inquietud.entrance(action.lot).pipe(
+        this.inquietud.status(action.lot).pipe(
           delay(3000),
           switchMap((_) => [fromMenuActions.menuLoadSuccess()]),
           catchError((error) =>

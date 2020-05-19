@@ -26,11 +26,7 @@ export class ExitLotPage implements OnInit {
   };
 
   lots: LotProductInterface[];
-  products: LotProductInterface[] = [
-    { loteId: 1444, description: "producto 1" },
-    { loteId: 1445, description: "producto 2" },
-    { loteId: 1446, description: "producto 3" },
-  ];
+  products: LotProductInterface[];
 
   loading: boolean;
 
@@ -57,6 +53,9 @@ export class ExitLotPage implements OnInit {
     this.store
       .select(SELECT_MENU_LOTS)
       .subscribe((tempLots) => (this.lots = tempLots));
+    this.store
+      .select(SELECT_MENU_PRODUCTS)
+      .subscribe((tempProducts) => (this.products = tempProducts));
   }
 
   checkValues() {
@@ -88,12 +87,10 @@ export class ExitLotPage implements OnInit {
             this.store.dispatch(
               exitLotStartLoad({
                 report: {
-                  product: this.product.value,
+                  loteId: this.lot.value,
+                  productId: this.product.value,
+                  observations: this.observations.value,
                   date: this.date.value,
-                  lot: this.lot.value,
-                  lotInternal: this.lotInternal.value,
-                  quantity: this.quantity.value,
-                  observation: this.observations.value,
                 },
               })
             );

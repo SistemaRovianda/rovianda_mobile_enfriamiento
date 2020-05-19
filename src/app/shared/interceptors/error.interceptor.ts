@@ -15,7 +15,6 @@ export class ErrorInterceptor implements HttpInterceptor {
   constructor(private store: Store<AppStateInterface>) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    console.log("llame interceptor ")
     return next.handle(req).pipe(
       catchError((error) => {
         if (error.status === 400) {

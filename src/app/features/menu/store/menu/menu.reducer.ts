@@ -29,10 +29,6 @@ export const menuReducer = createReducer(
     ...state,
     lots,
   })),
-  on(fromMenuActions.menuSelectLot, (state) => ({
-    ...state,
-    loading: true,
-  })),
   on(fromMenuActions.menuLoadProducts, (state, { products }) => ({
     ...state,
     products,

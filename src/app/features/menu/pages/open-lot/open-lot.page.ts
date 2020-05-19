@@ -66,12 +66,7 @@ export class OpenLotPage implements OnInit {
     );
   }
 
-  selectLot() {
-    this.store.dispatch(fromMenuActions.menuSelectLot({ lot: this.lot.value }));
-  }
-
   requestOpenLot() {
-    console.log(this.lotForm.value);
     this.createAlert();
   }
 
@@ -91,8 +86,8 @@ export class OpenLotPage implements OnInit {
               openLotStartLoad({
                 lot: {
                   loteId: this.lot.value,
-                  productId: this.product.value.loteId,
-                  date: this.date.value,
+                  productId: this.product.value.productId,
+                  date: new Date(this.date.value).toISOString().split('T')[0],
                 },
               })
             );

@@ -1,20 +1,20 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { InquietudService } from "src/app/shared/services/inquietud.service";
+import { MeatService } from "src/app/shared/services/meat.service";
 import { catchError, delay, exhaustMap, switchMap } from "rxjs/operators";
 import { of } from "rxjs";
 import * as fromMenuActions from "src/app/features/menu/store/menu/menu.actions";
-import {closeLotStartLoad} from "./close-lot.actions"
+import { closeLotStartLoad } from "./close-lot.actions";
 
 @Injectable()
 export class CloseLotEffects {
-  constructor(private action$: Actions, private inquietud: InquietudService) {}
+  constructor(private action$: Actions, private meatService: MeatService) {}
 
   loadOpenLotEffects = createEffect(() =>
     this.action$.pipe(
       ofType(closeLotStartLoad),
       exhaustMap((action) =>
-        this.inquietud.entrance(action.lot).pipe(
+        this.meatService.status(action.lot).pipe(
           delay(3000),
           switchMap((_) => [fromMenuActions.menuLoadSuccess()]),
           catchError((error) =>

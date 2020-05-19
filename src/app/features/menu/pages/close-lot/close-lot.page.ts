@@ -65,10 +65,6 @@ export class CloseLotPage implements OnInit {
       );
   }
 
-  selectLot() {
-    this.store.dispatch(fromMenuActions.menuSelectLot({ lot: this.lot.value }));
-  }
-
   requestCloseLot() {
     console.log(this.lotForm.value);
     this.createAlert();

@@ -1,5 +1,5 @@
 export interface LotProductInterface {
-  loteId?: number;
+  loteId?: string;
   name?: string;
   productId?: number;
   quantity?: number;

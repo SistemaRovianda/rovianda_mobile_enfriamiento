@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { InquietudService } from "src/app/shared/services/inquietud.service";
+import { MeatService } from "src/app/shared/services/meat.service";
 import { exitLotStartLoad, exitLotLoadSuccess } from "./exit-lot.actions";
 import { exhaustMap, delay, switchMap, catchError } from "rxjs/operators";
 import * as fromMenuActions from "src/app/features/menu/store/menu/menu.actions";
@@ -11,7 +11,7 @@ import { from, of } from "rxjs";
 export class ExitLotEffects {
   constructor(
     private action$: Actions,
-    private inquietud: InquietudService,
+    private inquietud: MeatService,
     private router: Router
   ) {}
 
@@ -20,7 +20,6 @@ export class ExitLotEffects {
       ofType(exitLotStartLoad),
       exhaustMap((action) =>
         this.inquietud.exit(action.report).pipe(
-          delay(2000),
           switchMap((_) => [exitLotLoadSuccess()])
         )
       )

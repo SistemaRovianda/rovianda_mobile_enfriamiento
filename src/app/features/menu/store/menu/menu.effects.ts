@@ -21,7 +21,7 @@ export class MenuEffects {
     this.action$.pipe(
       ofType(fromMenuActions.menuStartLoad),
       exhaustMap((action) =>
-        this.lotsService.getLots().pipe(
+        this.lotsService.getLots(action.status).pipe(
           delay(3000),
           switchMap((lots) => [
             fromMenuActions.menuLoadLots({ lots }),
@@ -40,9 +40,10 @@ export class MenuEffects {
 
   loadProductsEffect$ = createEffect(() =>
     this.action$.pipe(
-      ofType(fromMenuActions.menuSelectLot),
+      ofType(fromMenuActions.menuStartLoadProducts),
       exhaustMap((action) =>
-        this.productsService.getProducts(action.lot).pipe(
+        this.productsService.getAllProductsFridge().pipe(
+          tap((o) => console.log(o)),
           switchMap((products) => [
             fromMenuActions.menuLoadProducts({ products }),
             fromMenuActions.menuFinisLoad(),
@@ -50,7 +51,7 @@ export class MenuEffects {
           catchError((error) =>
             of(
               fromMenuActions.menuFinisLoad(),
-              fromMenuActions.menuFailure(error)
+              fromMenuActions.menuFailure({ error })
             )
           )
         )

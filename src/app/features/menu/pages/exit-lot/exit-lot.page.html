@@ -14,7 +14,7 @@
             formControlName="product"
           >
             <ng-container *ngFor="let product of products">
-              <ion-select-option [value]="product">
+              <ion-select-option [value]="product.productId">
                 {{product.description}}</ion-select-option
               >
             </ng-container>
@@ -34,6 +34,7 @@
             placeholder="Ingresar fecha"
             displayFormat="MM/DD/YYYY"
             formControlName="date"
+            disabled
           ></ion-datetime>
         </ion-item>
         <div class="error">
@@ -119,7 +120,11 @@
       </ion-col>
     </ion-row>
     <ion-row class="row-button">
-      <ion-button class="next-button" [disabled]="!stepperTag.getStep(1)" (click)="requestReport()">
+      <ion-button
+        class="next-button"
+        [disabled]="!stepperTag.getStep(1)"
+        (click)="requestReport()"
+      >
         <ion-grid>
           <ion-row *ngIf="!loading">
             <ion-col size="10">

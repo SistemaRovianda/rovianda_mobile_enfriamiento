@@ -9,13 +9,16 @@ const MENU_FAILURE = "[MENU] Failure";
 
 const MENU_LOAD_LOTS = "[MENU] Load Lots";
 
-const MENU_SELECT_LOT = "[MENU] Select Lot";
+const MENU_START_LOAD_PRODUCTS = "[MENU] Start Load Products";
 
 const MENU_LOAD_PRODUCTS = "[MENU] Load Products";
 
 const MENU_LOAD_SUCCESS = "[MENU] Load Success";
 
-export const menuStartLoad = createAction(MENU_START_LOAD);
+export const menuStartLoad = createAction(
+  MENU_START_LOAD,
+  props<{ status: string }>()
+);
 
 export const menuFinisLoad = createAction(MENU_FINISH_LOAD);
 
@@ -29,10 +32,7 @@ export const menuLoadLots = createAction(
   props<{ lots: LotProductInterface[] }>()
 );
 
-export const menuSelectLot = createAction(
-  MENU_SELECT_LOT,
-  props<{ lot: number }>()
-);
+export const menuStartLoadProducts = createAction(MENU_START_LOAD_PRODUCTS);
 
 export const menuLoadProducts = createAction(
   MENU_LOAD_PRODUCTS,

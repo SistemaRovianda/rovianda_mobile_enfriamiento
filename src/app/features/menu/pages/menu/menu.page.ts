@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { AppStateInterface } from "src/app/shared/Models/app-state.interface";
 import { signOut } from "src/app/features/landing/store/login/login.action";
+import { stepperInit } from "../../store/stepper/stepper.actions";
 
 @Component({
   selector: "app-menu",
@@ -23,11 +24,11 @@ export class MenuPage implements OnInit {
     private store: Store<AppStateInterface>
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.store.dispatch(stepperInit());
+  }
 
   nextSection() {
-    console.log(this.section);
-
     this.router.navigate(["/" + this.section]);
     this.section = undefined;
   }

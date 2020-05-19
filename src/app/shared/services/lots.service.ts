@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { Observable } from "rxjs";
 import { LotProductInterface } from "../models/lot-product.interface";
@@ -11,32 +11,15 @@ export class LotsService {
   API;
 
   constructor(private http: HttpClient) {
-    this.API = `${environment.basePath}/losts`;
+    this.API = `${environment.basePathMock}/lots`;
   }
-
-  lotsFake: LotProductInterface[] = [
-    {
-      loteId: 4525,
-      name: "lote1",
-    },
-    {
-      loteId: 4526,
-      name: "lote2",
-    },
-    {
-      loteId: 4527,
-      name: "lote3",
-    },
-    {
-      loteId: 4528,
-      name: "lote4",
-    },
-  ];
-
-  getLots(): Observable<any> {
-    return new Observable((observer) => {
-      observer.next(this.lotsFake);
-      observer.complete();
+  getLots(status: string): Observable<any> {
+    const params = new HttpParams({
+      fromObject: {
+        type: "FRIDGE",
+        status,
+      },
     });
+    return this.http.get<any>(`${this.API}`, { params });
   }
 }
