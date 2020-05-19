@@ -14,14 +14,6 @@ export class MeatService {
     this.API = `${environment.basePathMock}/meat`;
   }
 
-  close(lot: LotProductInterface): Observable<any> {
-    return new Observable((observer) => {
-      console.log(lot);
-      observer.next(lot);
-      observer.complete();
-    });
-  }
-
   exit(report: ReportExitInterface): Observable<any> {
     return this.http.post<any>(`${this.API}/exit`, report);
   }

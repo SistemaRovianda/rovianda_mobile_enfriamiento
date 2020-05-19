@@ -90,7 +90,7 @@ export class ExitLotPage implements OnInit {
                   loteId: this.lot.value,
                   productId: this.product.value,
                   observations: this.observations.value,
-                  date: this.date.value,
+                  date: new Date(this.date.value).toISOString().split("T")[0],
                 },
               })
             );
