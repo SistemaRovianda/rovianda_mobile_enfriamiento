@@ -68,6 +68,7 @@ export class LoginPage implements OnInit {
       "There is no user record corresponding to this identifier. The user may have been deleted."
     )
       return "El correo electrónico no existe.";
+    if (value == "No autorizado") return "Usuario no valido para el sistema";
     return "Varios intentos fallidos, volver a intentarlo mas tarde o consultarlo con el administrador del sistema";
   }
 }

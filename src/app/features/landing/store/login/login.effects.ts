@@ -38,7 +38,6 @@ export class LoginEffects {
     )
   );
 
-
   loadCurrentTokenEffect$ = createEffect(() =>
     this.action$.pipe(
       ofType(fromUserActions.loadCurrentToken),
@@ -69,10 +68,20 @@ export class LoginEffects {
       ofType(fromLoginActions.signAuthSuccess),
       exhaustMap((action) =>
         this.auth.getUserData(action.uid).pipe(
-          switchMap(({ token }) => [
-            fromUserActions.loadUser({ token }),
-            fromLoginActions.signInSuccess(),
-          ]),
+          tap((o) => console.log(o)),
+          switchMap(
+            ({ token, rol, firstSurname, lastSurname, name, email }) => [
+              fromUserActions.loadUser({
+                token,
+                role: rol,
+                firstSurname,
+                lastSurname,
+                name,
+                email,
+              }),
+              fromLoginActions.signInSuccess(),
+            ]
+          ),
           catchError((error) =>
             of(
               fromLoginActions.finishLoad(),

@@ -6,8 +6,8 @@ export interface UserInterface {
   lastSurname?: string;
   email?: string;
   password?: string;
-  phone?: string;
   type?: string;
   role?: string;
   currentToken?: string;
+  rol?: string;
 }

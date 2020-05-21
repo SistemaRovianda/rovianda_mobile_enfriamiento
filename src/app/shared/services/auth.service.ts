@@ -24,7 +24,7 @@ export class AuthService {
     });
 
     this.auth = firebase.auth();
-    this.API = `${environment.basePath}/`;
+    this.API = `${environment.basePath}`;
   }
 
   userFake: UserInterface = {
@@ -37,8 +37,6 @@ export class AuthService {
   };
 
   signIn(email: string, password: string): Observable<any> {
-    email = "enfriamiento@yopmail.com";
-    password = "enfriamiento";
     return from(
       this.auth
         .signInWithEmailAndPassword(email, password)
@@ -61,12 +59,7 @@ export class AuthService {
   }
 
   getUserData(uid: string): Observable<UserInterface> {
-    //return this.http.get<UserInterface>(`${this.API}/${uid}`);
-
-    return new Observable((observer) => {
-      observer.next(this.userFake);
-      observer.complete();
-    });
+    return this.http.get<UserInterface>(`${this.API}/user/${uid}`);
   }
 
   signOut(): Observable<any> | null {

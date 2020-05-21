@@ -45,7 +45,7 @@ export class AuthGuard implements CanActivate {
     | UrlTree {
     if (this.uid != "" && this.uid != null)
       if (this.token != "" && this.token != null)
-        /*if (this.role != "" && this.role != null) */ return true;
+        if (this.role != "" && this.role != null && this.role == "Enfriamiento") return true;
 
     this.router.navigate(["/login"]);
     return true;
