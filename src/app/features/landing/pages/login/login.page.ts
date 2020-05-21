@@ -69,6 +69,7 @@ export class LoginPage implements OnInit {
     )
       return "El correo electrónico no existe.";
     if (value == "No autorizado") return "Usuario no valido para el sistema";
+    if (value == "Not Found") return "Usuarion no encontrado en el sistema";
     return "Varios intentos fallidos, volver a intentarlo mas tarde o consultarlo con el administrador del sistema";
   }
 }

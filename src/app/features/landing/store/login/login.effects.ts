@@ -89,7 +89,7 @@ export class LoginEffects {
           catchError((error) =>
             of(
               fromLoginActions.finishLoad(),
-              fromLoginActions.signInFailure(error)
+              fromLoginActions.signInFailure({ error })
             )
           )
         )
@@ -110,7 +110,7 @@ export class LoginEffects {
           catchError((error) =>
             of(
               fromLoginActions.finishLoad(),
-              fromLoginActions.signInFailure(error)
+              fromLoginActions.signInFailure({ error })
             )
           )
         )
@@ -124,7 +124,7 @@ export class LoginEffects {
       exhaustMap((action) =>
         this.auth.signOut().pipe(
           switchMap((action) => [fromUserActions.clearUser()]),
-          catchError((error) => of(fromLoginActions.signOutFailured(error)))
+          catchError((error) => of(fromLoginActions.signOutFailured({ error })))
         )
       )
     )
