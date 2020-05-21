@@ -26,7 +26,7 @@ export class LoginPage implements OnInit {
   loginForm = this.fb.group(
     {
       email: ["", [Validators.required, emailValidator]],
-      password: ["", [Validators.required, passwordValidator]],
+      password: ["", [Validators.required]],
     },
     {
       asyncValidators: [

@@ -24,7 +24,7 @@ export class AuthService {
     });
 
     this.auth = firebase.auth();
-    this.API = `${environment.basePath}`;
+    this.API = `${environment.basePathMock}`;
   }
 
   userFake: UserInterface = {
@@ -56,6 +56,13 @@ export class AuthService {
         return Promise.all([Promise.resolve(res)]);
       })
     ).pipe(map(([currentToken]) => ({ currentToken })));
+  }
+
+  isAuth() {
+    return (
+      localStorage.getItem("token") != null &&
+      localStorage.getItem("rol") == "ENFRIAMIENTO"
+    );
   }
 
   getUserData(uid: string): Observable<UserInterface> {

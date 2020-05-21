@@ -13,7 +13,8 @@ import {
   selectRole,
 } from "src/app/features/landing/store/user/user.selector";
 import { Observable } from "rxjs";
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
+import { AuthService } from "../Services/auth.service";
 
 @Injectable({
   providedIn: "root",
@@ -25,7 +26,11 @@ export class AuthGuard implements CanActivate {
 
   role: string;
 
-  constructor(private store: Store<AppStateInterface>, private router: Router) {
+  constructor(
+    private store: Store<AppStateInterface>,
+    private router: Router,
+    private _authService: AuthService
+  ) {
     this.store.select(selectUID).subscribe((tempUID) => (this.uid = tempUID));
     this.store
       .select(selectCurrentToken)
@@ -43,9 +48,12 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (this.uid != "" && this.uid != null)
-      if (this.token != "" && this.token != null)
-        if (this.role != "" && this.role != null && this.role == "Enfriamiento") return true;
+    // if (this.uid != "" && this.uid != null)
+    //   if (this.token != "" && this.token != null)
+    //     if (this.role != "" && this.role != null && this.role == "Enfriamiento") return true;
+    if (this._authService.isAuth()) {
+      return true;
+    }
 
     this.router.navigate(["/login"]);
     return true;

@@ -43,15 +43,19 @@ export class LoginEffects {
       ofType(fromUserActions.loadCurrentToken),
       exhaustMap((action) =>
         this.auth.getTokenCurrentUser().pipe(
-          switchMap((res) => [
-            fromUserActions.loadCurrentTokenSuccess({
-              currentToken: res.currentToken,
-            }),
-            fromLoginActions.signAuthSuccess({
-              uid: action.uid,
-              currentToken: res.currentToken,
-            }),
-          ]),
+          switchMap((res) => {
+            localStorage.setItem("uid", action.uid);
+            localStorage.setItem("token", res.token);
+            return [
+              fromUserActions.loadCurrentTokenSuccess({
+                currentToken: res.currentToken,
+              }),
+              fromLoginActions.signAuthSuccess({
+                uid: action.uid,
+                currentToken: res.currentToken,
+              }),
+            ];
+          }),
           catchError((error) =>
             of(
               fromLoginActions.finishLoad(),
@@ -69,10 +73,10 @@ export class LoginEffects {
       exhaustMap((action) =>
         this.auth.getUserData(action.uid).pipe(
           tap((o) => console.log(o)),
-          switchMap(
-            ({ token, rol, firstSurname, lastSurname, name, email }) => [
+          switchMap(({ name, firstSurname, lastSurname, email, rol }) => {
+            localStorage.setItem("rol", rol);
+            return [
               fromUserActions.loadUser({
-                token,
                 role: rol,
                 firstSurname,
                 lastSurname,
@@ -80,8 +84,8 @@ export class LoginEffects {
                 email,
               }),
               fromLoginActions.signInSuccess(),
-            ]
-          ),
+            ];
+          }),
           catchError((error) =>
             of(
               fromLoginActions.finishLoad(),

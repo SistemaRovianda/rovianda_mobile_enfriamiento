@@ -9,6 +9,7 @@ import { Store } from "@ngrx/store";
 import { AppStateInterface } from "../Models/app-state.interface";
 import { selectUID } from "src/app/features/landing/store/user/user.selector";
 import { Observable } from "rxjs";
+import { AuthService } from "../Services/auth.service";
 
 @Injectable({
   providedIn: "root",
@@ -16,7 +17,10 @@ import { Observable } from "rxjs";
 export class IsAuthenticatedGuard implements CanActivate {
   uid: string;
 
-  constructor(private store: Store<AppStateInterface>) {
+  constructor(
+    private store: Store<AppStateInterface>,
+    private _authService: AuthService
+  ) {
     this.store.select(selectUID).subscribe((tempUID) => (this.uid = tempUID));
   }
 
@@ -28,6 +32,6 @@ export class IsAuthenticatedGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.uid == null || this.uid == "" ? true : false;
+    return this._authService.isAuth() == false ? true : false;
   }
 }
