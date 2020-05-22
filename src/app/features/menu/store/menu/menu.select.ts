@@ -17,3 +17,8 @@ export const SELECT_MENU_PRODUCTS = createSelector(
   SELECT_MENU,
   (state) => state.products
 );
+
+export const SELECT_MENU_FRIDGES = createSelector(
+  SELECT_MENU,
+  (state) => state.fridges
+);

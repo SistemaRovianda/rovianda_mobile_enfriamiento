@@ -11,8 +11,12 @@ import {
   SELECT_MENU_LOADING,
   SELECT_MENU_LOTS,
   SELECT_MENU_PRODUCTS,
+  SELECT_MENU_FRIDGES,
 } from "../../store/menu/menu.select";
 import { closeLotStartLoad } from "../../store/close-lot/close-lot.actions";
+import { LotInterface } from "src/app/shared/Models/lot.interface";
+import { MaterialInterface } from "src/app/shared/Models/material.interface";
+import { FridgeInterface } from "src/app/shared/Models/fridge.interface";
 @Component({
   selector: "app-close-lot",
   templateUrl: "./close-lot.page.html",
@@ -24,9 +28,11 @@ export class CloseLotPage implements OnInit {
     path: "/menu",
   };
 
-  lots: LotProductInterface[];
+  lots: LotInterface[];
 
-  products: LotProductInterface[];
+  products: MaterialInterface[];
+
+  fridges: FridgeInterface[] = [];
 
   loading: boolean;
 
@@ -37,6 +43,7 @@ export class CloseLotPage implements OnInit {
   ) {}
 
   lotForm = this.fb.group({
+    fridge: ["", [Validators.required]],
     lot: ["", [Validators.required]],
     product: ["", [Validators.required]],
     date: [new Date().toISOString(), [Validators.required]],
@@ -51,8 +58,8 @@ export class CloseLotPage implements OnInit {
       .select(SELECT_MENU_LOTS)
       .subscribe((tempLots) => (this.lots = tempLots));
     this.store
-      .select(SELECT_MENU_PRODUCTS)
-      .subscribe((tempProducts) => (this.products = tempProducts));
+      .select(SELECT_MENU_FRIDGES)
+      .subscribe((tempFridges) => (this.fridges = tempFridges));
   }
 
   checkValues() {
@@ -84,10 +91,11 @@ export class CloseLotPage implements OnInit {
           handler: () => {
             this.store.dispatch(
               closeLotStartLoad({
-                lot: {
-                  loteId: this.lot.value,
-                  productId: this.product.value.loteId,
-                  date: this.date.value,
+                status: {
+                  date: new Date(this.date.value).toISOString().split("T")[0],
+                  fridgeId: this.fridge.value,
+                  loteId: this.lot.value.loteId,
+                  status: "CLOSED",
                 },
               })
             );
@@ -96,6 +104,16 @@ export class CloseLotPage implements OnInit {
       ],
     });
     (await alert).present();
+  }
+
+  selectFridge() {
+    this.store.dispatch(
+      fromMenuActions.menuSelectFridge({ fridge_id: this.fridge.value })
+    );
+  }
+
+  get fridge() {
+    return this.lotForm.get("fridge");
   }
 
   get lot() {

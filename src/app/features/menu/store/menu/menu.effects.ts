@@ -7,6 +7,8 @@ import { ProductService } from "src/app/shared/services/product.service";
 import * as fromMenuActions from "./menu.actions";
 import { exhaustMap, delay, switchMap, tap, catchError } from "rxjs/operators";
 import { from, of } from "rxjs";
+import { FridgeService } from "src/app/shared/services/fridge.service";
+import { exitLoadProducts } from "../exit-lot/exit-lot.actions";
 
 @Injectable()
 export class MenuEffects {
@@ -14,15 +16,35 @@ export class MenuEffects {
     private action$: Actions,
     private lotsService: LotsService,
     private productsService: ProductService,
-    private router: Router
+    private router: Router,
+    private fridge: FridgeService
   ) {}
 
-  loadLotsEffects$ = createEffect(() =>
+  menuStartLoadEffect = createEffect(() =>
     this.action$.pipe(
       ofType(fromMenuActions.menuStartLoad),
       exhaustMap((action) =>
-        this.lotsService.getLots(action.status).pipe(
-          delay(3000),
+        this.fridge.fridges().pipe(
+          switchMap((fridges) => [
+            fromMenuActions.menuLoadFridges({ fridges }),
+            fromMenuActions.menuFinisLoad(),
+          ]),
+          catchError((error) =>
+            of(
+              fromMenuActions.menuFinisLoad(),
+              fromMenuActions.menuFailure(error)
+            )
+          )
+        )
+      )
+    )
+  );
+
+  loadLotsEffects$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(fromMenuActions.menuSelectFridge),
+      exhaustMap((action) =>
+        this.lotsService.getLots(action.fridge_id).pipe(
           switchMap((lots) => [
             fromMenuActions.menuLoadLots({ lots }),
             fromMenuActions.menuFinisLoad(),
@@ -40,10 +62,9 @@ export class MenuEffects {
 
   loadProductsEffect$ = createEffect(() =>
     this.action$.pipe(
-      ofType(fromMenuActions.menuStartLoadProducts),
+      ofType(exitLoadProducts),
       exhaustMap((action) =>
         this.productsService.getAllProductsFridge().pipe(
-          tap((o) => console.log(o)),
           switchMap((products) => [
             fromMenuActions.menuLoadProducts({ products }),
             fromMenuActions.menuFinisLoad(),

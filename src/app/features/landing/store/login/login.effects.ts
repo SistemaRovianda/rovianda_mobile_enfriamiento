@@ -59,7 +59,7 @@ export class LoginEffects {
           catchError((error) =>
             of(
               fromLoginActions.finishLoad(),
-              fromLoginActions.signInFailure(error)
+              fromLoginActions.signInFailure({ error })
             )
           )
         )

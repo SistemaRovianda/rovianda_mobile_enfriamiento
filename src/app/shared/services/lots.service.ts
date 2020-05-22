@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { Observable } from "rxjs";
 import { LotProductInterface } from "../models/lot-product.interface";
+import { LotInterface } from "../Models/lot.interface";
 
 @Injectable({
   providedIn: "root",
@@ -11,15 +12,9 @@ export class LotsService {
   API;
 
   constructor(private http: HttpClient) {
-    this.API = `${environment.basePathMock}/lots`;
+    this.API = `${environment.basePathMock}/meat`;
   }
-  getLots(status: string): Observable<any> {
-    const params = new HttpParams({
-      fromObject: {
-        type: "FRIDGE",
-        status,
-      },
-    });
-    return this.http.get<any>(`${this.API}`, { params });
+  getLots(id: number): Observable<LotInterface[]> {
+    return this.http.get<LotInterface[]>(`${this.API}/${id}`);
   }
 }

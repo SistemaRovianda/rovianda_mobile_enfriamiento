@@ -10,9 +10,13 @@ import {
   SELECT_MENU_LOADING,
   SELECT_MENU_LOTS,
   SELECT_MENU_PRODUCTS,
+  SELECT_MENU_FRIDGES,
 } from "../../store/menu/menu.select";
 import { AlertController } from "@ionic/angular";
 import { openLotStartLoad } from "../../store/open-lot/open-lot.actions";
+import { FridgeInterface } from "src/app/shared/models/fridge.interface";
+import { LotInterface } from "src/app/shared/Models/lot.interface";
+import { MaterialInterface } from "src/app/shared/models/material.interface";
 
 @Component({
   selector: "app-open-lot",
@@ -25,9 +29,11 @@ export class OpenLotPage implements OnInit {
     path: "/menu",
   };
 
-  lots: LotProductInterface[];
+  lots: LotInterface[];
 
-  products: LotProductInterface[];
+  products: MaterialInterface[];
+
+  fridges: FridgeInterface[] = [];
 
   loading: boolean;
 
@@ -38,6 +44,7 @@ export class OpenLotPage implements OnInit {
   ) {}
 
   lotForm = this.fb.group({
+    fridge: ["", [Validators.required]],
     lot: ["", [Validators.required]],
     product: ["", [Validators.required]],
     date: [new Date().toISOString(), [Validators.required]],
@@ -48,12 +55,13 @@ export class OpenLotPage implements OnInit {
     this.store
       .select(SELECT_MENU_LOADING)
       .subscribe((tempLoading) => (this.loading = tempLoading));
+    this.store.select(SELECT_MENU_LOTS).subscribe((tempLots) => {
+      this.lots = tempLots;
+    });
+
     this.store
-      .select(SELECT_MENU_LOTS)
-      .subscribe((tempLots) => (this.lots = tempLots));
-    this.store
-      .select(SELECT_MENU_PRODUCTS)
-      .subscribe((tempProducts) => (this.products = tempProducts));
+      .select(SELECT_MENU_FRIDGES)
+      .subscribe((tempFridges) => (this.fridges = tempFridges));
   }
 
   checkValues() {
@@ -84,10 +92,11 @@ export class OpenLotPage implements OnInit {
           handler: () => {
             this.store.dispatch(
               openLotStartLoad({
-                lot: {
-                  loteId: this.lot.value,
-                  productId: this.product.value.productId,
-                  date: new Date(this.date.value).toISOString().split('T')[0],
+                status: {
+                  date: new Date(this.date.value).toISOString().split("T")[0],
+                  fridgeId: this.fridge.value,
+                  loteId: this.lot.value.loteId,
+                  status: "OPENED",
                 },
               })
             );
@@ -96,6 +105,15 @@ export class OpenLotPage implements OnInit {
       ],
     });
     (await alert).present();
+  }
+
+  selectFridge() {
+    this.store.dispatch(
+      fromMenuActions.menuSelectFridge({ fridge_id: this.fridge.value })
+    );
+  }
+  get fridge() {
+    return this.lotForm.get("fridge");
   }
 
   get lot() {

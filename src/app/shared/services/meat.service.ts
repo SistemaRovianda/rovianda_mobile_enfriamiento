@@ -4,6 +4,7 @@ import { environment } from "src/environments/environment";
 import { Observable } from "rxjs";
 import { LotProductInterface } from "../models/lot-product.interface";
 import { ReportExitInterface } from "../models/report-exit.interface";
+import { StatusInterface } from "../models/status.interface";
 
 @Injectable({
   providedIn: "root",
@@ -17,7 +18,8 @@ export class MeatService {
   exit(report: ReportExitInterface): Observable<any> {
     return this.http.post<any>(`${this.API}/exit`, report);
   }
-  status(lot: LotProductInterface): Observable<any> {
-    return this.http.patch<any>(`${this.API}/status`, lot);
+  status(status: StatusInterface): Observable<any> {
+    console.log(status);
+    return this.http.patch<any>(`${this.API}/status`, status);
   }
 }

@@ -14,7 +14,7 @@ export class OpenLotEffects {
     this.action$.pipe(
       ofType(openLotStartLoad),
       exhaustMap((action) =>
-        this.inquietud.status(action.lot).pipe(
+        this.inquietud.status(action.status).pipe(
           delay(3000),
           switchMap((_) => [fromMenuActions.menuLoadSuccess()]),
           catchError((error) =>

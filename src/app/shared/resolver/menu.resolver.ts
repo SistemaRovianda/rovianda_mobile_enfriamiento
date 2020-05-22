@@ -7,6 +7,7 @@ import {
 import { Store } from "@ngrx/store";
 import { AppStateInterface } from "../Models/app-state.interface";
 import * as fromStepperActions from "src/app/features/menu/store/stepper/stepper.actions";
+import { menuStartLoad } from 'src/app/features/menu/store/menu/menu.actions';
 
 @Injectable()
 export class MenuResolver implements Resolve<boolean> {
@@ -14,6 +15,7 @@ export class MenuResolver implements Resolve<boolean> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     this.store.dispatch(fromStepperActions.stepperInit());
+    this.store.dispatch(menuStartLoad());
     return true;
   }
 }

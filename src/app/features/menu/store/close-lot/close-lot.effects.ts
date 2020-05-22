@@ -14,7 +14,7 @@ export class CloseLotEffects {
     this.action$.pipe(
       ofType(closeLotStartLoad),
       exhaustMap((action) =>
-        this.meatService.status(action.lot).pipe(
+        this.meatService.status(action.status).pipe(
           delay(3000),
           switchMap((_) => [fromMenuActions.menuLoadSuccess()]),
           catchError((error) =>

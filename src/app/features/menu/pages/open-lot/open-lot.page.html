@@ -4,18 +4,40 @@
   <form [formGroup]="lotForm" class="body">
     <ion-row>
       <ion-item>
+        <ion-label position="floating">Refrigerador*</ion-label>
+        <ion-select
+          class="item-form"
+          interface="action-sheet"
+          placeholder="Selecione un refrigerador"
+          formControlName="fridge"
+          [disabled]="loading"
+          (ionChange)="selectFridge()"
+        >
+          <ng-container *ngFor="let fridge of fridges">
+            <ion-select-option [value]="fridge.fridge_id"
+              >Temp: {{fridge.temp}}</ion-select-option
+            >
+          </ng-container>
+        </ion-select>
+      </ion-item>
+    </ion-row>
+    <div class="error">
+      <ion-label *ngIf="fridge.errors">
+        Por favor seleccione un refrigerador
+      </ion-label>
+    </div>
+    <ion-row>
+      <ion-item>
         <ion-label position="floating">Lote*</ion-label>
         <ion-select
           class="item-form"
           interface="action-sheet"
           placeholder="Seleccione lote"
           formControlName="lot"
-          [disabled]="loading"
+          [disabled]="lots.length == 0"
         >
           <ng-container *ngFor="let lot of lots">
-            <ion-select-option [value]="lot.loteId"
-              >{{lot.name}}</ion-select-option
-            >
+            <ion-select-option [value]="lot">{{lot.loteId}}</ion-select-option>
           </ng-container>
         </ion-select>
       </ion-item>
@@ -35,9 +57,9 @@
           formControlName="product"
           [disabled]="loading"
         >
-          <ng-container *ngFor="let product of products">
+          <ng-container *ngFor="let product of lot.value.Material">
             <ion-select-option [value]="product"
-              >{{product.description}}</ion-select-option
+              >{{product.rawMaterial}}</ion-select-option
             >
           </ng-container>
         </ion-select>

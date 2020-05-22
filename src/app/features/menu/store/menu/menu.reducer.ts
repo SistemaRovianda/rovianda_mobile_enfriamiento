@@ -7,6 +7,7 @@ import * as fromCloseLotActions from "../close-lot/close-lot.actions";
 const STATE_INITIAL_MENU: MenuInterface = {
   lots: [],
   products: [],
+  fridges: [],
   loading: false,
   error: null,
 };
@@ -16,6 +17,10 @@ export const menuReducer = createReducer(
   on(fromMenuActions.menuStartLoad, (state) => ({
     ...state,
     loading: true,
+  })),
+  on(fromMenuActions.menuLoadFridges, (state, { fridges }) => ({
+    ...state,
+    fridges,
   })),
   on(fromMenuActions.menuFinisLoad, (state) => ({
     ...state,

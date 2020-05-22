@@ -27,15 +27,6 @@ export class AuthService {
     this.API = `${environment.basePathMock}`;
   }
 
-  userFake: UserInterface = {
-    email: "rovianda@gmail.com",
-    password: "Rovianda#.123",
-    token: "hddskskeokjghskskdn",
-    role: "admi",
-    uid: "ururjdjsjsjjslanldenimw",
-    type: "user",
-  };
-
   signIn(email: string, password: string): Observable<any> {
     return from(
       this.auth
@@ -61,7 +52,7 @@ export class AuthService {
   isAuth() {
     return (
       localStorage.getItem("token") != null &&
-      localStorage.getItem("rol") == "ENFRIAMIENTO" 
+      localStorage.getItem("rol") == "ENFRIAMIENTO"
     );
   }
 
@@ -70,6 +61,7 @@ export class AuthService {
   }
 
   signOut(): Observable<any> | null {
+    localStorage.clear();
     return from(
       this.auth.signOut().then((_) => {
         this.router.navigate(["/login"], { replaceUrl: true });
