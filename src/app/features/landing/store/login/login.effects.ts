@@ -3,7 +3,7 @@ import { Actions, ofType, createEffect } from "@ngrx/effects";
 import * as fromLoginActions from "src/app/features/landing/store/login/login.action";
 import * as fromUserActions from "src/app/features/landing/store/user/user.action";
 import { exhaustMap, switchMap, catchError, tap, delay } from "rxjs/operators";
-import { of, forkJoin, from } from "rxjs";
+import { of, from } from "rxjs";
 import { AuthService } from "src/app/shared/Services/auth.service";
 import { Router } from "@angular/router";
 

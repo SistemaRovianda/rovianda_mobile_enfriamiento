@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
-import { Observable, from, throwError } from "rxjs";
+import { Observable, from } from "rxjs";
 import { UserInterface } from "../Models/user.interface";
 
 import * as firebase from "firebase/app";

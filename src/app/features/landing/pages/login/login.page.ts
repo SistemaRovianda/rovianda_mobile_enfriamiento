@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { emailValidator } from "src/app/shared/validators/email.validator";
-import { passwordValidator } from "src/app/shared/validators/password.validator";
 import { StoreValidators } from "src/app/shared/validators/store.validator";
 import { Store } from "@ngrx/store";
 import { AppStateInterface } from "src/app/shared/models/app-state.interface";
