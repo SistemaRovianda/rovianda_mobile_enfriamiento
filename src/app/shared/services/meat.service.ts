@@ -12,7 +12,7 @@ import { StatusInterface } from "../models/status.interface";
 export class MeatService {
   API;
   constructor(private http: HttpClient) {
-    this.API = `${environment.basePathMock}/meat`;
+    this.API = `${environment.basePath}/meat`;
   }
 
   exit(report: ReportExitInterface): Observable<any> {

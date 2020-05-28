@@ -11,7 +11,7 @@ export class LotsService {
   API;
 
   constructor(private http: HttpClient) {
-    this.API = `${environment.basePathMock}/meat`;
+    this.API = `${environment.basePath}/meat`;
   }
   getLots(id: number): Observable<LotInterface[]> {
     return this.http.get<LotInterface[]>(`${this.API}/${id}`);

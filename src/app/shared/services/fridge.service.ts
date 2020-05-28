@@ -9,7 +9,7 @@ export class FridgeService {
   URL;
 
   constructor(private http: HttpClient) {
-    this.URL = `${environment.basePathMock}`;
+    this.URL = `${environment.basePath}`;
   }
 
   fridges(): Observable<FridgeInterface[]> {

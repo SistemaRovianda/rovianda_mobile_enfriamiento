@@ -11,7 +11,7 @@ export class ProductService {
   url;
 
   constructor(private http: HttpClient) {
-    this.url = `${environment.basePathMock}/products`;
+    this.url = `${environment.basePath}/products`;
   }
 
   getAllProductsFridge(): Observable<any> {

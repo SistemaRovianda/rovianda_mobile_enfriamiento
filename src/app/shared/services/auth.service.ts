@@ -24,7 +24,7 @@ export class AuthService {
     });
 
     this.auth = firebase.auth();
-    this.API = `${environment.basePathMock}`;
+    this.API = `${environment.basePath}`;
   }
 
   signIn(email: string, password: string): Observable<any> {
