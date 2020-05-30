@@ -10,6 +10,7 @@ import {
 } from "../../store/login/login.selector";
 
 import * as fromLoginActions from "../../store/login/login.action";
+import { noWhiteSpace } from "src/app/shared/validators/whitespace.validator";
 
 @Component({
   selector: "app-login",
@@ -24,8 +25,8 @@ export class LoginPage implements OnInit {
 
   loginForm = this.fb.group(
     {
-      email: ["", [Validators.required, emailValidator]],
-      password: ["", [Validators.required]],
+      email: ["", [Validators.required, Validators.email, noWhiteSpace]],
+      password: ["", [Validators.required, noWhiteSpace]],
     },
     {
       asyncValidators: [

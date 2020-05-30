@@ -6,7 +6,7 @@
   </ion-row>
   <ion-row class="body">
     <ion-col size="12">
-      <form  [formGroup]="loginForm">
+      <form [formGroup]="loginForm">
         <ion-grid class="form-grid">
           <ion-row class="form-image">
             <ion-col size="12">
@@ -31,8 +31,14 @@
             </ion-item>
           </ion-row>
           <div class="error">
-            <ion-label *ngIf="email.errors">
-              Por favor ingresa un correo electr&oacute;nico valido
+            <ion-label *ngIf="email.invalid && (email.dirty || email.touched)">
+              Dato inválido
+            </ion-label>
+            <ion-label *ngIf="loginForm.get('email').hasError('email')">
+              Ingrese un correo electrónico
+            </ion-label>
+            <ion-label *ngIf="email.touched && email.errors?.whitespace">
+              No se aceptan espacios en blanco
             </ion-label>
           </div>
           <ion-row>
@@ -48,14 +54,16 @@
             </ion-item>
           </ion-row>
           <div class="error">
-            <ion-label *ngIf="password.errors">
-              Por favor ingresa una contraseña válida
+            <ion-label
+              *ngIf="password.invalid && (password.dirty || password.touched)"
+            >
+              Dato inválido.
+            </ion-label>
+            <ion-label *ngIf="password.touched && password.whitespace">
+              No se aceptan espacios en blanco
             </ion-label>
           </div>
-          <ion-button
-            (click)="onLogin()"
-            [disabled]="loginForm.invalid"
-          >
+          <ion-button (click)="onLogin()" [disabled]="loginForm.invalid">
             <label *ngIf="!loading">Iniciar sesi&oacute;n</label>
             <ion-spinner
               *ngIf="loading"
@@ -65,7 +73,7 @@
           </ion-button>
           <div class="error">
             <ion-label *ngIf="loginForm.errors?.loginError">
-              {{ translateErrorMessageByFirebase(loginForm.errors.loginError)}} 
+              {{ translateErrorMessageByFirebase(loginForm.errors.loginError)}}
             </ion-label>
           </div>
         </ion-grid>
