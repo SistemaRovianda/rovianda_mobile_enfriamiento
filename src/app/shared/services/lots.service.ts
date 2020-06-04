@@ -13,7 +13,7 @@ export class LotsService {
   constructor(private http: HttpClient) {
     this.API = `${environment.basePath}/meat`;
   }
-  getLots(id: number): Observable<LotInterface[]> {
-    return this.http.get<LotInterface[]>(`${this.API}/${id}`);
+  getLots(id: number, status: string): Observable<LotInterface[]> {
+    return this.http.get<LotInterface[]>(`${this.API}/${id}?status=${status}`);
   }
 }

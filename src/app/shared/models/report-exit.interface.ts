@@ -5,4 +5,5 @@ export interface ReportExitInterface {
   productId?: number;
   date: string;
   observations: string;
+  quantity?: number;
 }

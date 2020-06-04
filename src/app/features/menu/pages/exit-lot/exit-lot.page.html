@@ -6,22 +6,24 @@
     <ion-row>
       <ion-col size="7">
         <ion-item>
-          <ion-label position="floating">Producto*</ion-label>
+          <ion-label position="floating">Refrigerador*</ion-label>
           <ion-select
             class="item-form"
             interface="action-sheet"
-            placeholder="Seleccione un producto"
-            formControlName="product"
+            placeholder="Seleccione un refrigerador"
+            [disabled]="loading"
+            formControlName="fridge"
+            (ionChange)="selectFridge()"
           >
-            <ng-container *ngFor="let product of products">
-              <ion-select-option [value]="product.productId">
-                {{product.description}}</ion-select-option
+            <ng-container *ngFor="let fridge of fridges">
+              <ion-select-option [value]="fridge.fridge_id">
+                Temp: {{fridge.temp}}</ion-select-option
               >
             </ng-container>
           </ion-select>
         </ion-item>
         <div class="error">
-          <ion-label *ngIf="product.errors"
+          <ion-label *ngIf="fridge.errors"
             >Por favor seleccione un producto</ion-label
           >
         </div>
@@ -45,11 +47,11 @@
     <ion-row>
       <ion-col size="6">
         <ion-item>
-          <ion-label position="floating">Lote interno</ion-label>
+          <ion-label position="floating">Lote*</ion-label>
           <ion-select
             class="item-form"
             interface="action-sheet"
-            placeholder="Ingrese lote interno"
+            placeholder="Seleccione lote"
             formControlName="lotInternal"
           >
             <ng-container *ngFor="let lot of lots">

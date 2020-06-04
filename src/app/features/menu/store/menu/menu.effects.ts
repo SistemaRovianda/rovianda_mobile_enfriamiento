@@ -44,7 +44,7 @@ export class MenuEffects {
     this.action$.pipe(
       ofType(fromMenuActions.menuSelectFridge),
       exhaustMap((action) =>
-        this.lotsService.getLots(action.fridge_id).pipe(
+        this.lotsService.getLots(action.fridge_id, action.status).pipe(
           switchMap((lots) => [
             fromMenuActions.menuLoadLots({ lots }),
             fromMenuActions.menuFinisLoad(),

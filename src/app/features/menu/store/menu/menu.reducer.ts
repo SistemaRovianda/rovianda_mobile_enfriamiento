@@ -17,6 +17,7 @@ export const menuReducer = createReducer(
   on(fromMenuActions.menuStartLoad, (state) => ({
     ...state,
     loading: true,
+    lots: [],
   })),
   on(fromMenuActions.menuLoadFridges, (state, { fridges }) => ({
     ...state,

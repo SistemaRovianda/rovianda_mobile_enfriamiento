@@ -109,7 +109,7 @@ export class OpenLotPage implements OnInit {
 
   selectFridge() {
     this.store.dispatch(
-      fromMenuActions.menuSelectFridge({ fridge_id: this.fridge.value })
+      fromMenuActions.menuSelectFridge({ fridge_id: this.fridge.value, status: "PENDING" })
     );
   }
   get fridge() {

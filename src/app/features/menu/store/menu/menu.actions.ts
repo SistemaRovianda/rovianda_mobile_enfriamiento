@@ -30,7 +30,7 @@ export const menuLoadFridges = createAction(
 
 export const menuSelectFridge = createAction(
   MENU_SELECT_FRIDGE,
-  props<{ fridge_id: number }>()
+  props<{ fridge_id: number; status: string }>()
 );
 
 export const menuFinisLoad = createAction(MENU_FINISH_LOAD);

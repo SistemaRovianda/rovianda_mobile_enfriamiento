@@ -11,11 +11,13 @@ import {
   SELECT_MENU_LOADING,
   SELECT_MENU_LOTS,
   SELECT_MENU_PRODUCTS,
+  SELECT_MENU_FRIDGES,
 } from "../../store/menu/menu.select";
 import {
   exitLotStartLoad,
   exitLoadProducts,
 } from "../../store/exit-lot/exit-lot.actions";
+import { FridgeInterface } from "src/app/shared/Models/fridge.interface";
 
 @Component({
   selector: "app-exit-lot",
@@ -28,13 +30,12 @@ export class ExitLotPage implements OnInit {
     path: "/menu",
   };
 
-  lots: LotProductInterface[] = [
-    { loteId: "lote 01", description: "lote interno 1" },
-    { loteId: "lote 02", description: "lote interno 1" },
-  ];
+  lots: LotProductInterface[] = [];
   products: LotProductInterface[];
 
   loading: boolean;
+
+  fridges: FridgeInterface[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -43,7 +44,7 @@ export class ExitLotPage implements OnInit {
   ) {}
 
   reportForm = this.fb.group({
-    product: ["", [Validators.required]],
+    fridge: ["", [Validators.required]],
     date: [new Date().toISOString(), [Validators.required]],
     lotInternal: ["", [Validators.required]],
     quantity: ["", [Validators.required]],
@@ -56,9 +57,11 @@ export class ExitLotPage implements OnInit {
       .select(SELECT_MENU_LOADING)
       .subscribe((tempLoading) => (this.loading = tempLoading));
     this.store
-      .select(SELECT_MENU_PRODUCTS)
-      .subscribe((tempProducts) => (this.products = tempProducts));
-    this.store.dispatch(exitLoadProducts());
+      .select(SELECT_MENU_FRIDGES)
+      .subscribe((tempFridges) => (this.fridges = tempFridges));
+    this.store
+      .select(SELECT_MENU_LOTS)
+      .subscribe((tempLots) => (this.lots = tempLots));
   }
 
   checkValues() {
@@ -90,9 +93,9 @@ export class ExitLotPage implements OnInit {
               exitLotStartLoad({
                 report: {
                   loteId: this.lotInternal.value,
-                  productId: this.product.value,
                   observations: this.observations.value,
                   date: new Date(this.date.value).toISOString().split("T")[0],
+                  quantity: this.quantity.value,
                 },
               })
             );
@@ -103,8 +106,17 @@ export class ExitLotPage implements OnInit {
     (await alert).present();
   }
 
-  get product() {
-    return this.reportForm.get("product");
+  selectFridge() {
+    this.store.dispatch(
+      fromMenuActions.menuSelectFridge({
+        fridge_id: this.fridge.value,
+        status: "OPENED",
+      })
+    );
+  }
+
+  get fridge() {
+    return this.reportForm.get("fridge");
   }
 
   get date() {
