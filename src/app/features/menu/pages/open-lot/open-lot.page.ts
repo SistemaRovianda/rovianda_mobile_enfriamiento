@@ -11,12 +11,14 @@ import {
   SELECT_MENU_LOTS,
   SELECT_MENU_PRODUCTS,
   SELECT_MENU_FRIDGES,
+  SELECT_MENU_RAW_MATERIAL,
 } from "../../store/menu/menu.select";
 import { AlertController } from "@ionic/angular";
 import { openLotStartLoad } from "../../store/open-lot/open-lot.actions";
 import { FridgeInterface } from "src/app/shared/models/fridge.interface";
 import { LotInterface } from "src/app/shared/Models/lot.interface";
 import { MaterialInterface } from "src/app/shared/models/material.interface";
+import { RawMaterialInterface } from "src/app/shared/Models/rawMaterial.interface";
 
 @Component({
   selector: "app-open-lot",
@@ -31,7 +33,7 @@ export class OpenLotPage implements OnInit {
 
   lots: LotInterface[];
 
-  products: MaterialInterface[];
+  products: RawMaterialInterface[];
 
   fridges: FridgeInterface[] = [];
 
@@ -62,6 +64,13 @@ export class OpenLotPage implements OnInit {
     this.store
       .select(SELECT_MENU_FRIDGES)
       .subscribe((tempFridges) => (this.fridges = tempFridges));
+
+    this.store
+      .select(SELECT_MENU_RAW_MATERIAL)
+      .subscribe(
+        (tempRaw) =>
+          (this.products = tempRaw.filter((raw) => raw.status === "PENDING"))
+      );
   }
 
   checkValues() {
@@ -93,10 +102,11 @@ export class OpenLotPage implements OnInit {
             this.store.dispatch(
               openLotStartLoad({
                 status: {
+                  loteId: this.lot.value,
                   date: new Date(this.date.value).toISOString().split("T")[0],
-                  fridgeId: this.fridge.value,
-                  loteId: this.lot.value.loteId,
                   status: "OPENED",
+                  fridgeId: this.fridge.value,
+                  materialId: this.product.value,
                 },
               })
             );
@@ -109,7 +119,18 @@ export class OpenLotPage implements OnInit {
 
   selectFridge() {
     this.store.dispatch(
-      fromMenuActions.menuSelectFridge({ fridge_id: this.fridge.value, status: "PENDING" })
+      fromMenuActions.menuSelectFridge({
+        fridge_id: this.fridge.value,
+        status: "PENDING",
+      })
+    );
+  }
+
+  selectLot() {
+    this.store.dispatch(
+      fromMenuActions.menuSelectLotInternal({
+        lotId: this.lot.value,
+      })
     );
   }
   get fridge() {

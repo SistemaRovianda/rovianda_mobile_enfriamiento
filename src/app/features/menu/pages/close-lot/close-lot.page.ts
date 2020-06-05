@@ -12,11 +12,13 @@ import {
   SELECT_MENU_LOTS,
   SELECT_MENU_PRODUCTS,
   SELECT_MENU_FRIDGES,
+  SELECT_MENU_RAW_MATERIAL,
 } from "../../store/menu/menu.select";
 import { closeLotStartLoad } from "../../store/close-lot/close-lot.actions";
 import { LotInterface } from "src/app/shared/Models/lot.interface";
 import { MaterialInterface } from "src/app/shared/Models/material.interface";
 import { FridgeInterface } from "src/app/shared/Models/fridge.interface";
+import { RawMaterialInterface } from "src/app/shared/Models/rawMaterial.interface";
 @Component({
   selector: "app-close-lot",
   templateUrl: "./close-lot.page.html",
@@ -30,7 +32,7 @@ export class CloseLotPage implements OnInit {
 
   lots: LotInterface[];
 
-  products: MaterialInterface[];
+  products: RawMaterialInterface[];
 
   fridges: FridgeInterface[] = [];
 
@@ -60,6 +62,12 @@ export class CloseLotPage implements OnInit {
     this.store
       .select(SELECT_MENU_FRIDGES)
       .subscribe((tempFridges) => (this.fridges = tempFridges));
+    this.store
+      .select(SELECT_MENU_RAW_MATERIAL)
+      .subscribe(
+        (tempRaw) =>
+          (this.products = tempRaw.filter((raw) => raw.status === "OPENED"))
+      );
   }
 
   checkValues() {
@@ -92,10 +100,11 @@ export class CloseLotPage implements OnInit {
             this.store.dispatch(
               closeLotStartLoad({
                 status: {
+                  loteId: this.lot.value,
                   date: new Date(this.date.value).toISOString().split("T")[0],
-                  fridgeId: this.fridge.value,
-                  loteId: this.lot.value.loteId,
                   status: "CLOSED",
+                  fridgeId: this.fridge.value,
+                  materialId: this.product.value,
                 },
               })
             );
@@ -111,6 +120,14 @@ export class CloseLotPage implements OnInit {
       fromMenuActions.menuSelectFridge({
         fridge_id: this.fridge.value,
         status: "OPENED",
+      })
+    );
+  }
+
+  selectLot() {
+    this.store.dispatch(
+      fromMenuActions.menuSelectLotInternal({
+        lotId: this.lot.value,
       })
     );
   }

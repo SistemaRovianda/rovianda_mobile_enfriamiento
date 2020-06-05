@@ -5,6 +5,7 @@ import { Observable } from "rxjs";
 import { LotProductInterface } from "../models/lot-product.interface";
 import { ReportExitInterface } from "../models/report-exit.interface";
 import { StatusInterface } from "../models/status.interface";
+import { RawMaterialInterface } from "../Models/rawMaterial.interface";
 
 @Injectable({
   providedIn: "root",
@@ -21,5 +22,9 @@ export class MeatService {
   status(status: StatusInterface): Observable<any> {
     console.log(status);
     return this.http.patch<any>(`${this.API}/status`, status);
+  }
+
+  raw(lotId: number): Observable<RawMaterialInterface[]> {
+    return this.http.get<RawMaterialInterface[]>(`${this.API}/raw/${lotId}`);
   }
 }

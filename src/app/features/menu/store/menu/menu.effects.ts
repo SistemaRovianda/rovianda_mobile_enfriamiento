@@ -9,6 +9,7 @@ import { exhaustMap, delay, switchMap, tap, catchError } from "rxjs/operators";
 import { from, of } from "rxjs";
 import { FridgeService } from "src/app/shared/services/fridge.service";
 import { exitLoadProducts } from "../exit-lot/exit-lot.actions";
+import { MeatService } from "src/app/shared/services/meat.service";
 
 @Injectable()
 export class MenuEffects {
@@ -16,6 +17,7 @@ export class MenuEffects {
     private action$: Actions,
     private lotsService: LotsService,
     private productsService: ProductService,
+    private meat: MeatService,
     private router: Router,
     private fridge: FridgeService
   ) {}
@@ -52,7 +54,26 @@ export class MenuEffects {
           catchError((error) =>
             of(
               fromMenuActions.menuFinisLoad(),
-              fromMenuActions.menuFailure(error)
+              fromMenuActions.menuFailure({ error })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  loadRawMaterialEffects$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(fromMenuActions.menuSelectLotInternal),
+      exhaustMap((action) =>
+        this.meat.raw(action.lotId).pipe(
+          switchMap((rawMaterial) => [
+            fromMenuActions.menuLoadRawMaterial({ rawMaterial }),
+          ]),
+          catchError((error) =>
+            of(
+              fromMenuActions.menuFinisLoad(),
+              fromMenuActions.menuFailure({ error })
             )
           )
         )

@@ -12,12 +12,14 @@ import {
   SELECT_MENU_LOTS,
   SELECT_MENU_PRODUCTS,
   SELECT_MENU_FRIDGES,
+  SELECT_MENU_RAW_MATERIAL,
 } from "../../store/menu/menu.select";
 import {
   exitLotStartLoad,
   exitLoadProducts,
 } from "../../store/exit-lot/exit-lot.actions";
 import { FridgeInterface } from "src/app/shared/Models/fridge.interface";
+import { RawMaterialInterface } from "src/app/shared/Models/rawMaterial.interface";
 
 @Component({
   selector: "app-exit-lot",
@@ -31,7 +33,8 @@ export class ExitLotPage implements OnInit {
   };
 
   lots: LotProductInterface[] = [];
-  products: LotProductInterface[];
+
+  products: RawMaterialInterface[];
 
   loading: boolean;
 
@@ -47,6 +50,7 @@ export class ExitLotPage implements OnInit {
     fridge: ["", [Validators.required]],
     date: [new Date().toISOString(), [Validators.required]],
     lotInternal: ["", [Validators.required]],
+    product: ["", [Validators.required]],
     quantity: ["", [Validators.required]],
     observations: [""],
   });
@@ -62,6 +66,14 @@ export class ExitLotPage implements OnInit {
     this.store
       .select(SELECT_MENU_LOTS)
       .subscribe((tempLots) => (this.lots = tempLots));
+    this.store
+      .select(SELECT_MENU_RAW_MATERIAL)
+      .subscribe(
+        (rawMaterial) =>
+          (this.products = rawMaterial.filter(
+            (material) => material.status === "OPENED"
+          ))
+      );
   }
 
   checkValues() {
@@ -92,10 +104,11 @@ export class ExitLotPage implements OnInit {
             this.store.dispatch(
               exitLotStartLoad({
                 report: {
-                  loteId: this.lotInternal.value,
+                  loteId: this.lotInternal.value.loteId,
                   observations: this.observations.value,
                   date: new Date(this.date.value).toISOString().split("T")[0],
                   quantity: this.quantity.value,
+                  materialId: this.product.value,
                 },
               })
             );
@@ -115,6 +128,18 @@ export class ExitLotPage implements OnInit {
     );
   }
 
+  selectLotInternal() {
+    this.store.dispatch(
+      fromMenuActions.menuSelectLotInternal({
+        lotId: this.lotInternal.value.loteId,
+      })
+    );
+  }
+
+  materialId() {
+    let material = this.lotInternal.value.Material.filter();
+  }
+
   get fridge() {
     return this.reportForm.get("fridge");
   }
@@ -129,6 +154,10 @@ export class ExitLotPage implements OnInit {
 
   get lotInternal() {
     return this.reportForm.get("lotInternal");
+  }
+
+  get product() {
+    return this.reportForm.get("product");
   }
 
   get quantity() {

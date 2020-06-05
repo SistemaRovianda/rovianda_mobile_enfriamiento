@@ -35,9 +35,12 @@
           placeholder="Seleccione lote"
           formControlName="lot"
           [disabled]="loading"
+          (ionChange)="selectLot()"
         >
           <ng-container *ngFor="let lot of lots">
-            <ion-select-option [value]="lot">{{lot.loteId}}</ion-select-option>
+            <ion-select-option [value]="lot.loteId"
+              >{{lot.loteId}}</ion-select-option
+            >
           </ng-container>
         </ion-select>
       </ion-item>
@@ -55,9 +58,9 @@
           formControlName="product"
           [disabled]="loading"
         >
-          <ng-container *ngFor="let product of lot.value.Material">
-            <ion-select-option [value]="product"
-              >{{product.rawMaterial}}
+          <ng-container *ngFor="let product of products">
+            <ion-select-option [value]="product.rawMaterialId"
+              >{{product.nameMaterial}}
             </ion-select-option>
           </ng-container>
         </ion-select>

@@ -13,6 +13,11 @@ export const SELECT_MENU_LOTS = createSelector(
   (state) => state.lots
 );
 
+export const SELECT_MENU_RAW_MATERIAL = createSelector(
+  SELECT_MENU,
+  (state) => state.rawMaterial
+);
+
 export const SELECT_MENU_PRODUCTS = createSelector(
   SELECT_MENU,
   (state) => state.products

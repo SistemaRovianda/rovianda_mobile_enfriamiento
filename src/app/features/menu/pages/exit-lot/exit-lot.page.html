@@ -55,7 +55,7 @@
             formControlName="lotInternal"
           >
             <ng-container *ngFor="let lot of lots">
-              <ion-select-option [value]="lot.loteId">
+              <ion-select-option [value]="lot">
                 {{lot.loteId}}</ion-select-option
               >
             </ng-container>
@@ -64,6 +64,30 @@
         <div class="error">
           <ion-label *ngIf="lotInternal.errors"
             >Por favor seleccione lote
+          </ion-label>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Producto*</ion-label>
+          <ion-select
+            class="item-form"
+            interface="action-sheet"
+            placeholder="Seleccione lote"
+            formControlName="product"
+          >
+            <ng-container *ngFor="let product of lotInternal.value.Material">
+              <ion-select-option [value]="product.id">
+                {{product.rawMaterial}}</ion-select-option
+              >
+            </ng-container>
+          </ion-select>
+        </ion-item>
+        <div class="error">
+          <ion-label *ngIf="lotInternal.errors"
+            >Por favor seleccione producto
           </ion-label>
         </div>
       </ion-col>

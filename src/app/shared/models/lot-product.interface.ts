@@ -1,3 +1,5 @@
+import { FridgeInterface } from './fridge.interface';
+
 export interface LotProductInterface {
   loteId?: string;
   name?: string;
@@ -6,3 +8,5 @@ export interface LotProductInterface {
   date?: string;
   description?: string;
 }
+
+

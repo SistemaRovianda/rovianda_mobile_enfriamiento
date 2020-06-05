@@ -8,6 +8,7 @@ const STATE_INITIAL_MENU: MenuInterface = {
   lots: [],
   products: [],
   fridges: [],
+  rawMaterial: [],
   loading: false,
   error: null,
 };
@@ -38,6 +39,10 @@ export const menuReducer = createReducer(
   on(fromMenuActions.menuLoadProducts, (state, { products }) => ({
     ...state,
     products,
+  })),
+  on(fromMenuActions.menuLoadRawMaterial, (state, { rawMaterial }) => ({
+    ...state,
+    rawMaterial,
   })),
   on(fromOpenLotActions.openLotStartLoad, (state) => ({
     ...state,

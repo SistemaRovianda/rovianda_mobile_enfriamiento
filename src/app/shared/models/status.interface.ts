@@ -3,4 +3,5 @@ export interface StatusInterface {
   date: string;
   status: string;
   fridgeId: number;
+  materialId?: number;
 }
