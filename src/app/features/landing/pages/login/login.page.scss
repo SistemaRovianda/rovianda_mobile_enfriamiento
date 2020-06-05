@@ -57,13 +57,13 @@ $color-text-secondary: #dbdbdb;
           border: $color-text-secondary solid 1.5px;
           border-radius: 5px;
           width: 100%;
-          color: $color-secondary;
           font-weight: 300;
+          font-size: 3vw;
           margin-top: 13%;
           transform: 2s;
           ion-input {
             margin-left: 4%;
-            font-size: 2.5vw;
+            font-size: 3vw;
           }
           ion-icon {
             &.color {
