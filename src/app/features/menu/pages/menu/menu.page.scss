@@ -42,27 +42,6 @@ $color-text-secondary: #717171;
       }
     }
   }
-  .footer {
-    height: 25%;
-    ion-row {
-      height: 75%;
-    }
-    .row-stepper {
-      height: 25%;
-    }
-    .row-button {
-      padding: 0 30%;
-      .next-button {
-        --ion-color-primary: #e2bd53;
-        --padding-top: 3%;
-        text-transform: none;
-        width: 100%;
-        height: 40%;
-        margin-top: 10%;
-        font-size: 3.5vw;
-      }
-    }
-  }
 }
 
 .segment-button-checked {

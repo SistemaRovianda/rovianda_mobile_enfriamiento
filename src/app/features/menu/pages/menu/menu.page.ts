@@ -28,11 +28,6 @@ export class MenuPage implements OnInit {
     this.store.dispatch(stepperInit());
   }
 
-  nextSection() {
-    this.router.navigate(["/" + this.section]);
-    this.section = undefined;
-  }
-
   logOut() {
     this.store.dispatch(signOut());
   }
