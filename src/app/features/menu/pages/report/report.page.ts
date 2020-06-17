@@ -9,7 +9,7 @@ import { HeaderInterface } from "src/app/shared/models/header.interface";
 export class ReportPage implements OnInit {
   header: HeaderInterface = {
     namePath: "Regresar",
-    path: "/exit-lot",
+    path: "/menu",
   };
 
   constructor() {}

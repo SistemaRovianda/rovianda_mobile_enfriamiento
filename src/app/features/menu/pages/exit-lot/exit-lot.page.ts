@@ -79,7 +79,7 @@ export class ExitLotPage implements OnInit {
   checkValues() {
     this.store.dispatch(
       fromStepperActions.stepperNext({
-        num: 1,
+        num: 0,
         step: this.reportForm.status !== "INVALID",
       })
     );

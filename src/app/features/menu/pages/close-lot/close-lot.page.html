@@ -22,7 +22,10 @@
       </ion-item>
     </ion-row>
     <div class="error">
-      <ion-label *ngIf="fridge.errors">
+      <ion-label
+        *ngIf="lotForm.hasError('required', 'fridge') &&
+      (lotForm.controls.fridge.touched || lotForm.controls.fridge.dirty)"
+      >
         Por favor seleccione un refrigerador
       </ion-label>
     </div>
@@ -46,7 +49,11 @@
       </ion-item>
     </ion-row>
     <div class="error">
-      <ion-label *ngIf="lot.errors">Por favor ingrese un lote</ion-label>
+      <ion-label
+        *ngIf="lotForm.hasError('required', 'lot') &&
+      (lotForm.controls.lot.touched || lotForm.controls.lot.dirty)"
+        >Por favor ingrese un lote</ion-label
+      >
     </div>
     <ion-row>
       <ion-item>
@@ -67,12 +74,17 @@
       </ion-item>
     </ion-row>
     <div class="error">
-      <ion-label *ngIf="product.errors">Por seleccione un producto</ion-label>
+      <ion-label
+        *ngIf="lotForm.hasError('required', 'product') &&
+      (lotForm.controls.product.touched || lotForm.controls.product.dirty)"
+        >Por seleccione un producto</ion-label
+      >
     </div>
     <ion-row>
       <ion-item>
         <ion-label position="floating">Fecha de terminacion*</ion-label>
         <ion-datetime
+          disabled
           class="item-form"
           placeholder="Ingresar fecha"
           displayFormat="MM/DD/YYYY"
@@ -94,7 +106,7 @@
     <ion-row class="row-button">
       <ion-button
         class="next-button"
-        [disabled]="!stepperTag.getStep(1)"
+        [disabled]="!stepperTag.getStep(0)"
         (click)="requestCloseLot()"
       >
         <ion-grid>

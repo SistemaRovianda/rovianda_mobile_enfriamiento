@@ -23,7 +23,9 @@
           </ion-select>
         </ion-item>
         <div class="error">
-          <ion-label *ngIf="fridge.errors"
+          <ion-label
+            *ngIf="reportForm.hasError('required', 'fridge') &&
+          (reportForm.controls.fridge.touched || reportForm.controls.fridge.dirty)"
             >Por favor seleccione un producto</ion-label
           >
         </div>
@@ -62,7 +64,9 @@
           </ion-select>
         </ion-item>
         <div class="error">
-          <ion-label *ngIf="lotInternal.errors"
+          <ion-label
+            *ngIf="reportForm.hasError('required', 'lotInternal') &&
+          (reportForm.controls.lotInternal.touched || reportForm.controls.lotInternal.dirty)"
             >Por favor seleccione lote
           </ion-label>
         </div>
@@ -75,7 +79,7 @@
           <ion-select
             class="item-form"
             interface="action-sheet"
-            placeholder="Seleccione lote"
+            placeholder="Seleccione un producto"
             formControlName="product"
           >
             <ng-container *ngFor="let product of lotInternal.value.Material">
@@ -86,7 +90,9 @@
           </ion-select>
         </ion-item>
         <div class="error">
-          <ion-label *ngIf="lotInternal.errors"
+          <ion-label
+            *ngIf="reportForm.hasError('required', 'product') &&
+          (reportForm.controls.product.touched || reportForm.controls.product.dirty)"
             >Por favor seleccione producto
           </ion-label>
         </div>
@@ -104,7 +110,9 @@
           ></ion-input>
         </ion-item>
         <div class="error">
-          <ion-label *ngIf="quantity.errors"
+          <ion-label
+            *ngIf="reportForm.hasError('required', 'quantity') &&
+          (reportForm.controls.quantity.touched || reportForm.controls.quantity.dirty)"
             >Por favor ingrese una cantidad</ion-label
           >
         </div>
@@ -133,7 +141,7 @@
     <ion-row class="row-button">
       <ion-button
         class="next-button"
-        [disabled]="!stepperTag.getStep(1)"
+        [disabled]="!stepperTag.getStep(0)"
         (click)="requestReport()"
       >
         <ion-grid>

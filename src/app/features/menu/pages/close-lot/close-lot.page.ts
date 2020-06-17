@@ -74,7 +74,7 @@ export class CloseLotPage implements OnInit {
     console.log("checando valores"),
       this.store.dispatch(
         fromStepperActions.stepperNext({
-          num: 1,
+          num: 0,
           step: this.lotForm.status !== "INVALID",
         })
       );

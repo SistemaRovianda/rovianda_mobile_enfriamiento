@@ -3,7 +3,7 @@ import { createReducer, on } from "@ngrx/store";
 import { StepperInterface } from "src/app/shared/Models/stepper.interface";
 
 const STATE_INITIAL_STEPPER: StepperInterface = {
-  steps: [false, false],
+  steps: [false],
 };
 
 export const StepperReducer = createReducer<StepperInterface>(

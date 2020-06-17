@@ -32,10 +32,22 @@ $color-text-secondary: #717171;
             --indicator-color: transparent;
             text-transform: none;
           }
+          ion-button {
+            height: 100%;
+            width: 100%;
+            background-color: $color-text-secondary;
+            border-radius: 5px;
+            font-size: 5vw;
+            font-weight: 500;
+            text-transform: none;
+          }
         }
         .segment-odd {
           padding: 4% 8%;
           ion-segment-button {
+            max-width: 200%;
+          }
+          ion-button {
             max-width: 200%;
           }
         }
