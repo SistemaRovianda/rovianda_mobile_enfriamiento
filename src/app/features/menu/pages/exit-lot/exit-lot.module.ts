@@ -7,6 +7,7 @@ import { IonicModule } from "@ionic/angular";
 import { ExitLotPage } from "./exit-lot.page";
 import { Routes, RouterModule } from "@angular/router";
 import { ComponentsModule } from "src/app/shared/components/components.module";
+import { FormExitModule } from "../../component/form-exit/form-exit.module";
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const COMMON_IMPORTS = [
   RouterModule.forChild(routes),
   ComponentsModule,
   ReactiveFormsModule,
+  FormExitModule,
 ];
 
 @NgModule({

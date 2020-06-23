@@ -1,83 +1,12 @@
 <ion-grid class="container">
-  <ion-row class="title">
+  <ion-row class="item-head">
     <ion-col size="12" class="ion-align-self-end">
       <h1>Enfriamiento</h1>
     </ion-col>
   </ion-row>
-  <ion-row class="body">
+  <ion-row class="item-body">
     <ion-col size="12">
-      <form [formGroup]="loginForm">
-        <ion-grid class="form-grid">
-          <ion-row class="form-image">
-            <ion-col size="12">
-              <div class="image"></div>
-            </ion-col>
-          </ion-row>
-          <ion-row class="form-message">
-            <ion-col size="12">
-              <h1>Introduce tu usuario y contrase&ntilde;a</h1>
-              <h1>Para iniciar sesi&oacute;n</h1>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-item lines="none" class="form-input">
-              <ion-icon name="user" class="color"></ion-icon>
-              <ion-input
-                formControlName="email"
-                type="email"
-                placeholder="Nombre de usuario"
-                required
-              ></ion-input>
-            </ion-item>
-          </ion-row>
-          <div class="error">
-            <ion-label *ngIf="email.invalid && (email.dirty || email.touched)">
-              Dato inválido
-            </ion-label>
-            <ion-label *ngIf="loginForm.get('email').hasError('email')">
-              Ingrese un correo electrónico
-            </ion-label>
-            <ion-label *ngIf="email.touched && email.errors?.whitespace">
-              No se aceptan espacios en blanco
-            </ion-label>
-          </div>
-          <ion-row>
-            <ion-item lines="none" class="form-input">
-              <ion-icon name="lock" class="color"></ion-icon>
-              <ion-input
-                formControlName="password"
-                type="password"
-                placeholder="Contrase&ntilde;a"
-                required
-              >
-              </ion-input>
-            </ion-item>
-          </ion-row>
-          <div class="error">
-            <ion-label
-              *ngIf="password.invalid && (password.dirty || password.touched)"
-            >
-              Dato inválido.
-            </ion-label>
-            <ion-label *ngIf="password.touched && password.whitespace">
-              No se aceptan espacios en blanco
-            </ion-label>
-          </div>
-          <ion-button (click)="onLogin()" [disabled]="loginForm.invalid">
-            <label *ngIf="!loading">Iniciar sesi&oacute;n</label>
-            <ion-spinner
-              *ngIf="loading"
-              name="crescent"
-              diameter="32"
-            ></ion-spinner>
-          </ion-button>
-          <div class="error">
-            <ion-label *ngIf="loginForm.errors?.loginError">
-              {{ translateErrorMessageByFirebase(loginForm.errors.loginError)}}
-            </ion-label>
-          </div>
-        </ion-grid>
-      </form>
+      <app-form-login (onSubmit)="onLogin($event)"></app-form-login>
     </ion-col>
   </ion-row>
 </ion-grid>

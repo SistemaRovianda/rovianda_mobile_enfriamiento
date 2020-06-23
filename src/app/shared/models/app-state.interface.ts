@@ -9,3 +9,8 @@ export interface AppStateInterface {
   stepper: StepperInterface;
   menu: MenuInterface;
 }
+
+export interface SignIn {
+  email: string;
+  password: string;
+}

@@ -11,6 +11,7 @@ import * as fromMenuActions from "src/app/features/menu/store/menu/menu.actions"
 import { Router } from "@angular/router";
 import { from, of } from "rxjs";
 import { ProductService } from "src/app/shared/services/product.service";
+import { ToastService } from "src/app/shared/services/toast.service";
 
 @Injectable()
 export class ExitLotEffects {
@@ -18,16 +19,20 @@ export class ExitLotEffects {
     private action$: Actions,
     private inquietud: MeatService,
     private product: ProductService,
-    private router: Router
+    private router: Router,
+    private toast: ToastService
   ) {}
 
   loadExitLotEffects = createEffect(() =>
     this.action$.pipe(
       ofType(exitLotStartLoad),
       exhaustMap((action) =>
-        this.inquietud
-          .exit(action.report)
-          .pipe(switchMap((_) => [exitLotLoadSuccess()]))
+        this.inquietud.exit(action.report).pipe(
+          switchMap((_) => {
+            this.toast.presentToastSuccess();
+            return [exitLotLoadSuccess()];
+          })
+        )
       )
     )
   );

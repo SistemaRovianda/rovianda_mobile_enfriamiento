@@ -10,7 +10,7 @@
           interface="action-sheet"
           placeholder="Selecione un refrigerador"
           formControlName="fridge"
-          [disabled]="loading"
+          [disabled]="loading|| fridges.length ==0 "
           (ionChange)="selectFridge()"
         >
           <ng-container *ngFor="let fridge of fridges">
@@ -64,7 +64,7 @@
           interface="action-sheet"
           placeholder="Seleccione un producto"
           formControlName="product"
-          [disabled]="loading"
+          [disabled]="loading || products.length ==0"
         >
           <ng-container *ngFor="let product of products">
             <ion-select-option [value]="product.rawMaterialId"
@@ -109,7 +109,7 @@
     </ion-row>
     <ion-row class="row-button">
       <ion-button
-        [disabled]="!stepperTag.getStep(0)"
+        [disabled]="!stepperTag.getStep(0) || loading"
         class="next-button"
         (click)="requestOpenLot()"
       >

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { HeaderInterface } from "../../models/header.interface";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-header",
@@ -11,11 +12,12 @@ export class HeaderComponent implements OnInit {
 
   @Output() event = new EventEmitter();
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {}
 
   onClick() {
     this.event.emit("click action");
+    this.router.navigate([this.header.path]);
   }
 }

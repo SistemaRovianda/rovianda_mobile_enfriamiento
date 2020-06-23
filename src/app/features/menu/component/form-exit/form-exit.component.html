@@ -1,0 +1,144 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <ion-row>
+    <ion-col size="7">
+      <ion-item>
+        <ion-label position="floating">Refrigerador*</ion-label>
+        <ion-select
+          class="item-form"
+          interface="action-sheet"
+          placeholder="Seleccione un refrigerador"
+          [disabled]="loading"
+          formControlName="fridge"
+          (ionChange)="selectFridge()"
+        >
+          <ng-container *ngFor="let fridge of fridges">
+            <ion-select-option [value]="fridge.fridge_id">
+              Temp: {{ fridge.temp }}</ion-select-option
+            >
+          </ng-container>
+        </ion-select>
+      </ion-item>
+      <div class="error">
+        <ion-label
+          *ngIf="
+            form.hasError('required', 'fridge') &&
+            (form.controls.fridge.touched || form.controls.fridge.dirty)
+          "
+          >Por favor seleccione un producto</ion-label
+        >
+      </div>
+    </ion-col>
+    <ion-col size="5">
+      <ion-item>
+        <ion-label position="floating">Fecha entrada*</ion-label>
+        <ion-datetime
+          class="item-date"
+          placeholder="Ingresar fecha"
+          displayFormat="MM/DD/YYYY"
+          formControlName="date"
+          disabled
+        ></ion-datetime>
+      </ion-item>
+      <div class="error">
+        <ion-label
+          *ngIf="
+            form.hasError('required', 'lotInternal') &&
+            (form.controls.date.touched || form.controls.date.dirty)
+          "
+          >Por favor ingrese un lote</ion-label
+        >
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="6">
+      <ion-item>
+        <ion-label position="floating">Lote*</ion-label>
+        <ion-select
+          class="item-form"
+          interface="action-sheet"
+          placeholder="Seleccione lote"
+          formControlName="lotInternal"
+          [disabled]="lots.length ==0"
+        >
+          <ng-container *ngFor="let lot of lots">
+            <ion-select-option [value]="lot">
+              {{ lot.loteId }}</ion-select-option
+            >
+          </ng-container>
+        </ion-select>
+      </ion-item>
+      <div class="error">
+        <ion-label
+          *ngIf="
+            form.hasError('required', 'lotInternal') &&
+            (form.controls.lotInternal.touched ||
+              form.controls.lotInternal.dirty)
+          "
+          >Por favor seleccione lote
+        </ion-label>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="6">
+      <ion-item>
+        <ion-label position="floating">Producto*</ion-label>
+        <ion-select
+          class="item-form"
+          interface="action-sheet"
+          placeholder="Seleccione un producto"
+          formControlName="product"
+          [disabled]="lotInternal.value===''"
+        >
+          <ng-container *ngFor="let product of lotInternal.value.Material">
+            <ion-select-option [value]="product.id">
+              {{ product.rawMaterial }}</ion-select-option
+            >
+          </ng-container>
+        </ion-select>
+      </ion-item>
+      <div class="error">
+        <ion-label
+          *ngIf="
+            form.hasError('required', 'product') &&
+            (form.controls.product.touched || form.controls.product.dirty)
+          "
+          >Por favor seleccione producto
+        </ion-label>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="6">
+      <ion-item>
+        <ion-label position="floating">Cantidad*</ion-label>
+        <ion-input
+          class="item-form"
+          type="number"
+          placeholder="Ingresar cantidad"
+          formControlName="quantity"
+        ></ion-input>
+      </ion-item>
+      <div class="error">
+        <ion-label
+          *ngIf="
+            form.hasError('required', 'quantity') &&
+            (form.controls.quantity.touched || form.controls.quantity.dirty)
+          "
+          >Por favor ingrese una cantidad</ion-label
+        >
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="12">
+      <h1 class="title-observation">Observaciones generales</h1>
+    </ion-col>
+    <ion-col size="12">
+      <ion-item lines="none" color="color-input" class="input-observation">
+        <ion-input class="item-form" formControlName="observations"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</form>

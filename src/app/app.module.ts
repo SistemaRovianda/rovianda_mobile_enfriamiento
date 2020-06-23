@@ -27,7 +27,10 @@ const COMMON_DECLARATIONS = [AppComponent];
 
 const COMMON_IMPORTS = [
   BrowserModule,
-  IonicModule.forRoot(),
+  IonicModule.forRoot({
+    scrollPadding: false,
+    scrollAssist: true,
+  }),
   AppRoutingModule,
   AngularFireAuthModule,
   StoreModule.forRoot(reducers, {

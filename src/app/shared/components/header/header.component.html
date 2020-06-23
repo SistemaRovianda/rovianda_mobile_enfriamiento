@@ -1,12 +1,12 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button
-        [text]="header.namePath || 'Title path'"
-        [defaultHref]="header.path"
-        icon="arrow-back"
-        (click)="onClick()"
-      ></ion-back-button>
+      <ion-button (click)="onClick()"
+        ><ion-grid
+          ><ion-row
+            ><ion-col size="2"><ion-icon name="arrow-back"></ion-icon></ion-col
+            ><ion-col size="10">{{header.namePath}}</ion-col></ion-row></ion-grid
+      ></ion-button>
     </ion-buttons>
     <ion-title text-center>
       <ion-grid>
