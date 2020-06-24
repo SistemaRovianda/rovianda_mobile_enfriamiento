@@ -1,0 +1,29 @@
+@mixin breakpoint-size($point) {
+  $media-screen-sm: "(max-width: 600px)";
+  $media-screen-md: "(min-width: 800px)";
+  $media-screen-lg: "(min-width: 1024px)";
+  $media-screen-xl: "(min-width: 1280px)";
+
+  @if $point == ms-small {
+    @media #{$media-screen-sm} {
+      @content;
+    }
+  } @else if $point == ms-medium {
+    @media #{$media-screen-md} {
+      @content;
+    }
+  } @else if $point == ms-large {
+    @media #{$media-screen-lg} {
+      @content;
+    }
+  } @else if $point == ms-extra-large {
+    @media #{$media-screen-xl} {
+      @content;
+    }
+  }
+}
+
+@mixin message-error($fSize: 12px, $color: blue) {
+  font-size: $fSize;
+  color: $color;
+}
