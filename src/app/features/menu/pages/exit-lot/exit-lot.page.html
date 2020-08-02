@@ -14,18 +14,16 @@
     </ion-row>
     <div class="footer">
       <ion-row class="row-stepper">
-        <ion-col size="12"><app-stepper #stepperTag></app-stepper></ion-col>
+        <ion-col size="12">
+          <app-stepper #stepperTag></app-stepper>
+        </ion-col>
       </ion-row>
       <ion-row class="row-button">
-        <ion-button
-          class="next-button"
-          [disabled]="!stepperTag.getStep(0)|| loading"
-          (click)="form.onSubmit()"
-        >
+        <ion-button class="next-button" [disabled]="!stepperTag.getStep(0)|| loading" (click)="form.onSubmit()">
           <ion-grid>
             <ion-row *ngIf="!loading">
               <ion-col size="10">
-                Guardar el registro
+                Guardar registro
               </ion-col>
               <ion-col size="2">
                 <ion-icon name="chevron-forward-outline"></ion-icon>

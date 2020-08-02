@@ -41,7 +41,7 @@ export class ExitLotEffects {
     this.action$.pipe(
       ofType(exitLotLoadSuccess),
       exhaustMap((action) =>
-        from(this.router.navigate(["/report"])).pipe(
+        from(this.router.navigate(["/menu"])).pipe(
           switchMap((result) =>
             result
               ? [fromMenuActions.menuFinisLoad()]
