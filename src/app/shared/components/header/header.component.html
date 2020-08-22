@@ -1,18 +1,22 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button (click)="onClick()"
-        ><ion-grid
-          ><ion-row
-            ><ion-col size="2"><ion-icon name="arrow-back"></ion-icon></ion-col
-            ><ion-col size="10">{{header.namePath}}</ion-col></ion-row></ion-grid
-      ></ion-button>
+      <ion-button (click)="onClick()">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="2">
+            <ion-icon name="arrow-back"></ion-icon>
+          </ion-col>
+          <ion-col size="10">{{header.namePath}}</ion-col>
+        </ion-row>
+      </ion-grid>
+      </ion-button>
     </ion-buttons>
     <ion-title text-center>
       <ion-grid>
         <ion-row>
           <ion-col size="12">
-            <label>Enfriamiento</label>
+            <label>Congelamiento</label>
           </ion-col>
         </ion-row>
       </ion-grid>

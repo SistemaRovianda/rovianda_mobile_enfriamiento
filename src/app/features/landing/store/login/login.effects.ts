@@ -72,7 +72,6 @@ export class LoginEffects {
       ofType(fromLoginActions.signAuthSuccess),
       exhaustMap((action) =>
         this.auth.getUserData(action.uid).pipe(
-          tap((o) => console.log(o)),
           switchMap(({ name, firstSurname, lastSurname, email, rol }) => {
             localStorage.setItem("rol", rol);
             return [
@@ -122,7 +121,10 @@ export class LoginEffects {
     () =>
       this.action$.pipe(
         ofType(fromLoginActions.signInFailure),
-        tap((action) => localStorage.clear())
+        tap((action) => { 
+          console.error("Error en inicio de sesion: ", action.error);
+          localStorage.clear();
+        })
       ),
     {
       dispatch: false,
