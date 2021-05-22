@@ -2,7 +2,7 @@ import { createAction, props } from "@ngrx/store";
 import { LotProductInterface } from "src/app/shared/models/lot-product.interface";
 import { FridgeInterface } from "src/app/shared/models/fridge.interface";
 import { LotInterface } from "src/app/shared/models/lot.interface";
-import { RawMaterialInterface } from "src/app/shared/Models/rawMaterial.interface";
+import { RawMaterialInterface } from "src/app/shared/models/rawMaterial.interface";
 
 const MENU_START_LOAD = "[MENU] Start Load";
 
@@ -40,7 +40,7 @@ export const menuSelectFridge = createAction(
 
 export const menuSelectLotInternal = createAction(
   MENU_SELECT_LOT_INTERNAL,
-  props<{ lotId: number }>()
+  props<{ lotId: number,fridgeId:number }>()
 );
 
 export const menuFinisLoad = createAction(MENU_FINISH_LOAD);

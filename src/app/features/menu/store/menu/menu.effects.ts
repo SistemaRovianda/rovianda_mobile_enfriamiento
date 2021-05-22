@@ -66,7 +66,7 @@ export class MenuEffects {
     this.action$.pipe(
       ofType(fromMenuActions.menuSelectLotInternal),
       exhaustMap((action) =>
-        this.meat.raw(action.lotId).pipe(
+        this.meat.raw(action.lotId,action.fridgeId).pipe(
           switchMap((rawMaterial) => [
             fromMenuActions.menuLoadRawMaterial({ rawMaterial }),
           ]),

@@ -5,7 +5,7 @@ import {
   HttpHandler,
 } from "@angular/common/http";
 import { Store } from "@ngrx/store";
-import { AppStateInterface } from "../Models/app-state.interface";
+import { AppStateInterface } from "../models/app-state.interface";
 import { catchError } from "rxjs/operators";
 import { throwError } from "rxjs";
 import { signOut } from "src/app/features/landing/store/login/login.action";

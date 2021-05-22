@@ -1,10 +1,10 @@
 import { Component, OnInit, EventEmitter, Output } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Store } from "@ngrx/store";
-import { AppStateInterface } from "src/app/shared/Models/app-state.interface";
-import { LotProductInterface } from "src/app/shared/Models/lot-product.interface";
-import { RawMaterialInterface } from "src/app/shared/Models/rawMaterial.interface";
-import { FridgeInterface } from "src/app/shared/Models/fridge.interface";
+import { AppStateInterface } from "src/app/shared/models/app-state.interface";
+import { LotProductInterface } from "src/app/shared/models/lot-product.interface";
+import { RawMaterialInterface } from "src/app/shared/models/rawMaterial.interface";
+import { FridgeInterface } from "src/app/shared/models/fridge.interface";
 import * as fromStepperActions from "src/app/features/menu/store/stepper/stepper.actions";
 import {
   SELECT_MENU_FRIDGES,
@@ -54,7 +54,18 @@ export class FormExitComponent implements OnInit {
       .subscribe((tempFridges) => (this.fridges = tempFridges));
     this.store
       .select(SELECT_MENU_LOTS)
-      .subscribe((tempLots) => (this.lots = tempLots));
+      .subscribe((tempLots) => {
+        let alreadyAdd=[];
+        let list=[];
+        for(let temp of tempLots){
+          if(!alreadyAdd.includes(temp.loteId)){
+            alreadyAdd.push(temp.loteId);
+            list.push({loteId:temp.loteId});
+          }
+        }
+        list=list.sort((a,b)=>a.loteId-b.loteId)
+        this.lots = list;
+      });
     this.store
       .select(SELECT_MENU_RAW_MATERIAL)
       .subscribe(
@@ -87,6 +98,7 @@ export class FormExitComponent implements OnInit {
     this.store.dispatch(
       fromMenuActions.menuSelectLotInternal({
         lotId: this.lotInternal.value.loteId,
+        fridgeId: this.fridge.value // modificado
       })
     );
   }

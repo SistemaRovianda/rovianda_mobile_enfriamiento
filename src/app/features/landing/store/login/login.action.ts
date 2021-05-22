@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { UserInterface } from "src/app/shared/Models/user.interface";
+import { UserInterface } from "src/app/shared/models/user.interface";
 
 const SIGN_IN = "[LOGIN] Sign In";
 

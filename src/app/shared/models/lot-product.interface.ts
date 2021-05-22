@@ -1,4 +1,4 @@
-import { FridgeInterface } from './fridge.interface';
+
 
 export interface LotProductInterface {
   loteId?: string;

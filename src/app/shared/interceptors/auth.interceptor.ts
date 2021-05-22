@@ -6,7 +6,7 @@ import {
   HttpEvent,
   HttpHeaders,
 } from "@angular/common/http";
-import { AppStateInterface } from "../Models/app-state.interface";
+import { AppStateInterface } from "../models/app-state.interface";
 import { Store } from "@ngrx/store";
 import { selectCurrentToken } from "src/app/features/landing/store/user/user.selector";
 import { Observable } from "rxjs";

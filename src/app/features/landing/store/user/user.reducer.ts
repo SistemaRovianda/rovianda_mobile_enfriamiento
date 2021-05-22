@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { UserInterface } from "src/app/shared/Models/user.interface";
+import { UserInterface } from "src/app/shared/models/user.interface";
 import * as fromUserActions from "src/app/features/landing/store/user/user.action";
 
 const STATE_INITIAL_USER: UserInterface = {

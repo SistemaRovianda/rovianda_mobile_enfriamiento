@@ -3,7 +3,7 @@ import { HeaderInterface } from "src/app/shared/models/header.interface";
 import { LotProductInterface } from "src/app/shared/models/lot-product.interface";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Store } from "@ngrx/store";
-import { AppStateInterface } from "src/app/shared/Models/app-state.interface";
+import { AppStateInterface } from "src/app/shared/models/app-state.interface";
 import { AlertController } from "@ionic/angular";
 import * as fromStepperActions from "src/app/features/menu/store/stepper/stepper.actions";
 import * as fromMenuActions from "src/app/features/menu/store/menu/menu.actions";
@@ -15,10 +15,10 @@ import {
   SELECT_MENU_RAW_MATERIAL,
 } from "../../store/menu/menu.select";
 import { closeLotStartLoad } from "../../store/close-lot/close-lot.actions";
-import { LotInterface } from "src/app/shared/Models/lot.interface";
-import { MaterialInterface } from "src/app/shared/Models/material.interface";
-import { FridgeInterface } from "src/app/shared/Models/fridge.interface";
-import { RawMaterialInterface } from "src/app/shared/Models/rawMaterial.interface";
+import { LotInterface } from "src/app/shared/models/lot.interface";
+import { MaterialInterface } from "src/app/shared/models/material.interface";
+import { FridgeInterface } from "src/app/shared/models/fridge.interface";
+import { RawMaterialInterface } from "src/app/shared/models/rawMaterial.interface";
 @Component({
   selector: "app-close-lot",
   templateUrl: "./close-lot.page.html",
@@ -128,6 +128,7 @@ export class CloseLotPage implements OnInit {
     this.store.dispatch(
       fromMenuActions.menuSelectLotInternal({
         lotId: this.lot.value,
+        fridgeId: this.fridge.value
       })
     );
   }

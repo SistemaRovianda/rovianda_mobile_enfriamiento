@@ -4,7 +4,7 @@ import * as fromLoginActions from "src/app/features/landing/store/login/login.ac
 import * as fromUserActions from "src/app/features/landing/store/user/user.action";
 import { exhaustMap, switchMap, catchError, tap, delay } from "rxjs/operators";
 import { of, from } from "rxjs";
-import { AuthService } from "src/app/shared/Services/auth.service";
+import { AuthService } from "src/app/shared/services/auth.service";
 import { Router } from "@angular/router";
 
 @Injectable()

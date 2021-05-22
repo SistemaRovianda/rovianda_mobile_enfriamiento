@@ -5,7 +5,7 @@ import {
   RouterStateSnapshot,
 } from "@angular/router";
 import { Store } from "@ngrx/store";
-import { AppStateInterface } from "../Models/app-state.interface";
+import { AppStateInterface } from "../models/app-state.interface";
 import * as fromStepperActions from "src/app/features/menu/store/stepper/stepper.actions";
 import { menuStartLoad } from 'src/app/features/menu/store/menu/menu.actions';
 

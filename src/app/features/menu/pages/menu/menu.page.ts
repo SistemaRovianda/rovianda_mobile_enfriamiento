@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { HeaderInterface } from "src/app/shared/models/header.interface";
 import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
-import { AppStateInterface } from "src/app/shared/Models/app-state.interface";
+import { AppStateInterface } from "src/app/shared/models/app-state.interface";
 import { signOut } from "src/app/features/landing/store/login/login.action";
 import { stepperInit } from "../../store/stepper/stepper.actions";
 

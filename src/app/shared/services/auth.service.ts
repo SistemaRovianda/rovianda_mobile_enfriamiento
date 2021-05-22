@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { Observable, from } from "rxjs";
-import { UserInterface } from "../Models/user.interface";
+import { UserInterface } from "../models/user.interface";
 
 import * as firebase from "firebase/app";
 import "firebase/auth";
@@ -19,8 +19,10 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {
     firebase.initializeApp({
-      apiKey: "AIzaSyDaoKnC-MSM0b069pawJ5KI1eWlbmng99o",
-      authDomain: "rovianda-88249.firebaseapp.com",
+      apiKey: "AIzaSyDtp99_k4WaCJWR8d4FncfRpkA4sJTt23c",
+      authDomain: "sistema-rovianda.firebaseapp.com",
+      /*apiKey: "AIzaSyDaoKnC-MSM0b069pawJ5KI1eWlbmng99o",
+      authDomain: "rovianda-88249.firebaseapp.com",*/
     });
 
     this.auth = firebase.auth();

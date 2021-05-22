@@ -6,10 +6,10 @@ import {
   UrlTree,
 } from "@angular/router";
 import { Store } from "@ngrx/store";
-import { AppStateInterface } from "../Models/app-state.interface";
+import { AppStateInterface } from "../models/app-state.interface";
 import { selectUID } from "src/app/features/landing/store/user/user.selector";
 import { Observable } from "rxjs";
-import { AuthService } from "../Services/auth.service";
+import { AuthService } from "../services/auth.service";
 
 @Injectable({
   providedIn: "root",

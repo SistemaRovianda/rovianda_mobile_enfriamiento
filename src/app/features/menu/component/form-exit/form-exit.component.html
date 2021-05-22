@@ -60,6 +60,7 @@
           placeholder="Seleccione lote"
           formControlName="lotInternal"
           [disabled]="lots.length ==0"
+          (ionChange)="selectLotInternal()"
         >
           <ng-container *ngFor="let lot of lots">
             <ion-select-option [value]="lot">

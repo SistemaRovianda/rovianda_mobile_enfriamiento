@@ -16,9 +16,9 @@ import {
 import { AlertController } from "@ionic/angular";
 import { openLotStartLoad } from "../../store/open-lot/open-lot.actions";
 import { FridgeInterface } from "src/app/shared/models/fridge.interface";
-import { LotInterface } from "src/app/shared/Models/lot.interface";
+import { LotInterface } from "src/app/shared/models/lot.interface";
 import { MaterialInterface } from "src/app/shared/models/material.interface";
-import { RawMaterialInterface } from "src/app/shared/Models/rawMaterial.interface";
+import { RawMaterialInterface } from "src/app/shared/models/rawMaterial.interface";
 
 @Component({
   selector: "app-open-lot",
@@ -58,7 +58,16 @@ export class OpenLotPage implements OnInit {
       .select(SELECT_MENU_LOADING)
       .subscribe((tempLoading) => (this.loading = tempLoading));
     this.store.select(SELECT_MENU_LOTS).subscribe((tempLots) => {
-      this.lots = tempLots;
+      let alreadyAdd=[];
+      let list=[];
+      for(let temp of tempLots){
+          if(!alreadyAdd.includes(temp.loteId)){
+            list.push({loteId:temp.loteId});
+            alreadyAdd.push(temp.loteId);
+          }
+      }
+      list=list.sort((a,b)=>a.loteId-b.loteId);
+      this.lots = list;
     });
 
     this.store
@@ -130,6 +139,7 @@ export class OpenLotPage implements OnInit {
     this.store.dispatch(
       fromMenuActions.menuSelectLotInternal({
         lotId: this.lot.value,
+        fridgeId: this.fridge.value
       })
     );
   }

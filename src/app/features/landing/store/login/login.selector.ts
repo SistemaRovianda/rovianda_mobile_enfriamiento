@@ -1,4 +1,4 @@
-import { AppStateInterface } from "src/app/shared/Models/app-state.interface";
+import { AppStateInterface } from "src/app/shared/models/app-state.interface";
 import { createSelector } from "@ngrx/store";
 
 const SELECT_LOGIN = (state: AppStateInterface) => state.login;
