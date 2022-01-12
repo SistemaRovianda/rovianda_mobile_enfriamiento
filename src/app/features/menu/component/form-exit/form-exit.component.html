@@ -92,9 +92,9 @@
           formControlName="product"
           [disabled]="lotInternal.value===''"
         >
-          <ng-container *ngFor="let product of lotInternal.value.Material">
-            <ion-select-option [value]="product.id">
-              {{ product.rawMaterial }}</ion-select-option
+          <ng-container *ngFor="let product of products">
+            <ion-select-option [value]="product.rawMaterialId">
+              {{ product.nameMaterial }}</ion-select-option
             >
           </ng-container>
         </ion-select>
